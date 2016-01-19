@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8"/>
+    <title>FoodeeBuddee</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1.0, minimal-ui"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="yes"/>
+    <link rel="stylesheet" href="css/app.min.css"/>
+    <link rel="stylesheet" href="css/responsive.min.css"/>
+
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <!-- inject:js -->
+
+    <script src="js/app.min.js"></script>
+    <script src="https://apis.google.com/js/client.js"></script>
+    <script src="http://platform.twitter.com/widgets.js"></script>
+    <script>
+
+        /**
+         * This starts the application.  Bootstrap the initialization of angular after we receive the cordova deviceready event.
+         * If cordova does not exist (we are running in a browser) we will fire it manually
+         */
+        if (window.cordova) {
+            document.addEventListener('deviceready', function onDeviceReady() {
+                window.addEventListener('native.keyboardshow', keyboardShowHandler);
+            }, true);
+
+            $(document).on({
+                'DOMNodeInserted': function () {
+                    $('.pac-item, .pac-item span', this).addClass('needsclick');
+                }
+            }, '.pac-container');
+        }
+
+        function keyboardShowHandler() {
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+            cordova.plugins.Keyboard.disableScroll(true);
+        }
+    </script>
+    <style>
+        .ng-cloak {
+            display: none !important;
+        }
+    </style>
+
+</head>
+<body ng-app="FoodeeBuddee" ng-controller="FrontController as front">
+
+<!-- Sidebars -->
+<div ng-include="'sidebar.html'"
+     ui-track-as-search-param='true'
+     class="sidebar sidebar-left" ng-if="front.show"></div>
+
+<div class="app" ng-if="front.show">
+
+    <!-- Navbars -->
+    <div class="navbar navbar-app navbar-absolute-top header" ng-cloak>
+        <div class="btn-group pull-left" style="width: 24vw;">
+            <div ng-show="front.isBackVisible()" class="btn extra-icons">
+                <i class="fa fa-arrow-left menu-link-search" ng-click="front.backHandler()"></i>
+            </div>
+            <div ui-toggle="uiSidebarLeft" class="btn sidebar-toggle p-l-0 extra-icons">
+                <i class="fa fa-bars menu-link-search"></i>
+            </div>
+        </div>
+        <!--<div class="navbar-brand" style="overflow: initial;width: 52vw;text-align: center;padding: 0;">
+            <a href="main.html#/" style="display: inline-block;">
+                <img class="logo center-block" src="images/logo.png">
+            </a>
+        </div>-->
+        <div class="navbar-brand navbar-brand-center" style="overflow: initial;">
+            <a href="main.html#/" style="display: inline-block;" class="logo-header">
+                <img class="logo center-block" src="images/logo.png">
+            </a>
+        </div>
+        <div class="pull-right" style="width: 24vw;">
+            <div class="pull-right" ng-show="!front.loggedIn" style="line-height: 50px;">
+                <div style="padding: 0 0.6vw;" class="btn">
+                    <a href="#/login" class="btn btn-danger header-sign-in" style="padding: 0.5vw 1vw;">Sign In</a>
+                </div>
+            </div>
+            <div class="pull-right">
+                <div class="btn extra-icons">
+                    <i class="fa fa-search menu-link-search" ng-click="front.toggleSearch()"></i>
+                </div>
+                <div class="search-tooltip" ng-hide="front.searchShow">
+                </div>
+            </div>
+        </div>
+        <!--<div class="btn-group pull-right" ng-if="front.loggedIn">
+          <div class="btn sidebar-toggle extra-icons">
+            <i class="fa fa-bell menu-link-notification btn-red" >
+              <span class="badge app-badge">5</span>
+            </i>
+          </div>
+        </div>-->
+    </div>
+
+    <div ng-controller="MessageController as msgController" class="ng-cloak">
+        <div style="min-height: 46px;"
+             class="navbar navbar-app navbar-absolute-bottom navbar-absolute-bottom-footer to-the-top"
+             ng-if="msgController.show == true">
+            <div class="btn-group justified">
+                <div class="alert foodee-msg alert-{{ msgController.type }}">
+                    {{ msgController.message }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="customTemplate.html">
+        <a>
+            <span ng-bind-html="match | uibTypeaheadHighlight:query"></span>
+        </a>
+    </script>
+
+    <!-- App Body -->
+    <div class="app-body" id="page">
+        <div class="search-bar" ng-controller="SearchController as searchCtl" ng-hide="front.searchShow" ng-cloak>
+            <div class="col-xs-12 p-0 search-input">
+                <input style="border-radius: 0vw;" type="text" ng-model="searchCtl.selected" placeholder="Search"
+                       typeahead="state.label for state in searchCtl.results()"
+                       typeahead-loading="loadingLocations" typeahead-no-results="noResults"
+                       typeahead-on-select="searchCtl.search($item)"
+                       typeahead-wait-ms="10" class="form-control" id="search-box">
+                <i class="fa fa-times delete-btn" ng-click="searchCtl.clearSearchBar()"></i>
+                <i  ng-if="loadingLocations">
+                    <ng-include src=" 'list-loader.html' "></ng-include>
+                </i>
+
+            </div>
+        </div>
+        <div class="app-content">
+            <ng-view>
+
+            </ng-view>
+            <!-- <div ui-view> </div> -->
+        </div>
+        <div id="kbs" class="keyboardspace"></div>
+    </div>
+
+
+</div>
+<!-- ~ .app -->
+
+<div class="intro center-container foodee-form" ng-if="!front.show">
+    <div class="intro-first" ng-if="!front.video">
+        <div class="animate-switch-container"
+             ng-switch on="front.container">
+            <div class="animate-switch" ng-switch-when="logo">
+                <div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="video" ng-if="front.video">
+        <p ng-bind-html="front.videoContainer"></p>
+    </div>
+    <div class="row front-bottom login">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8">
+            <button ng-click="front.buttonAction()" class="submit-center-button btn btn-danger">
+                {{ front.buttonLabel }}
+            </button>
+        </div>
+        <div class="col-xs-2"></div>
+    </div>
+</div>
+
+
+<div ui-yield-to="modals"></div>
+</body>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaiZ7rycUyIKOXL_evFogLB5mKgcm6Me4&libraries=places"></script>
+</html>

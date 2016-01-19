@@ -1,0 +1,19 @@
+<section class="section container-fluid blogs-list scrollable" ng-controller="BlogsListController">
+  <div class="scrollable-content">
+    <h1 class="page-header">All Blogs</h1>
+    <ul infinite-scroll="blogsList.nextPage()"
+        infinite-scroll-container="'.blogs-list .scrollable-content'"
+        infinite-scroll-disabled="blogsList.busy">
+      <li ng-repeat="eatery in blogsList.items">
+        <img class="thumb" ng-src="{{eatery.thumbImagePath}}"
+             fallback-src="images/blog.png">
+        <h3 class="name" ng-bind="eatery.title"></h3>
+        <rating value="{{eatery.overAllRating}}"></rating>
+        <p class="author" ng-bind="'by ' + eatery.author"></p>
+      </li>
+      <li ng-show="blogsList.busy">
+        <ng-include src=" 'list-loader.html' "></ng-include>
+      </li>
+    </ul>
+  </div>
+</section>

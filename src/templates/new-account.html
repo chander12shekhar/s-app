@@ -1,0 +1,40 @@
+<section class="section container-fluid" ng-controller="RegisterController as ctrl">
+    <div class="scrollable-header foodee-navbar ">
+        <div class="navbar-brand-center title">
+            <div>Create an account</div>
+        </div>
+    </div>
+
+    <div class="scrollable" style="margin-top: 8vw;padding-bottom: 8vw;">
+        <div class="scrollable-content login foodee-form" id="login-screen">
+
+            <form name="registerForm" class="col-xs-12">
+                <div class="form-group">
+                    <input type="text" id="first-name" class="form-control Fname" ng-model="ctrl.user.firstName" placeholder="First Name"
+                           ng-blur="ctrl.newAccountValidation('Fname')" ng-focus="ctrl.removeError('Fname')" maxlength="50"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control LName" ng-model="ctrl.user.lastName" placeholder="Last Name"
+                           ng-blur="ctrl.newAccountValidation('LName')" ng-focus="ctrl.removeError('LName')" maxlength="50"/>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control REmail" ng-model="ctrl.user.email" placeholder="e-mail id"
+                           ng-blur="ctrl.newAccountValidation('REmail')" ng-focus="ctrl.removeError('REmail')"/>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control FPassword" ng-model="ctrl.user.password" placeholder="Password" maxlength="50"
+                           ng-blur="ctrl.newAccountValidation('FPassword')" ng-focus="ctrl.removeError('FPassword')"/>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control RPassword" ng-model="ctrl.transient.password"
+                           placeholder="Repeat Password" maxlength="50"
+                           ng-blur="ctrl.newAccountValidation('RPassword')" ng-focus="ctrl.removeError('RPassword')"/>
+                </div>
+                <div class="form-group text-center">
+                    <button ng-click="ctrl.register()" class="update-button btn">Register</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</section>

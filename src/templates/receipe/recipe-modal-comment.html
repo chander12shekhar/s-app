@@ -1,0 +1,21 @@
+  <div class="modal" ui-if="modalComment" ui-state='modalComment' ng-controller="RecipeDetailController as receipeCtrl">
+    <div class="modal-backdrop in"></div>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{receipeCtrl.CommentsTitle}}</h4>
+        </div>
+        <div class="modal-body">
+          <form name="formbody">
+            <textarea  class="form-control" rows="3" ng-model="receipeCtrl.commentValue" name="reviewbody"  ng-required="true"  placeholder="Please write your comments." ng-minlength=35>
+            </textarea>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button ui-turn-off="modalComment" class="btn btn-default primary-btn">Close</button>
+          <button ui-turn-off="modalComment" class="btn btn-primary primary-btn" ng-click="receipeCtrl.submitComment(receipeCtrl.CommentsTitle)">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

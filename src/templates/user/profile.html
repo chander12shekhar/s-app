@@ -1,0 +1,95 @@
+<section id="profile-section"
+         class="app-body section app-itemhomelist-innerpadding container-fluid profile scrollable"
+         ng-controller="LoginController as loginCtrl" xmlns="http://www.w3.org/1999/html">
+
+    <div class="scrollable-header foodee-navbar">
+        <div class="col-xs-12 title"><div>Profile</div></div>
+    </div>
+
+    <div class="scrollable" style="margin-top: 8vw;padding-bottom: 8vw;">
+        <div class="scrollable-content foodee-form">
+            <div>
+                <div class="form-group col-xs-5 padded centered">
+                    <div class="row">
+                        <img ng-src="{{ loginCtrl.user.mainImage }}"
+                             class="img-thumbail img-circle avatar"
+                             fallback-src="images/commons/avatar.jpg"/>
+                    </div>
+                    <div class="row p-0">
+                        <div class="personal-information first-capital">
+                            <h3>{{ loginCtrl.user.firstName }} {{ loginCtrl.user.lastName }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-7">
+                    <div class="row me-info">
+                        <div>
+                            <div class="col-xs-12 p-r-0">
+                                <i class="fa fa-user f-4p5"></i>
+                                <span class="detail-key m-l-1 first-capital"> {{ loginCtrl.user.gender }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row me-info">
+                        <div>
+                            <div class="col-xs-12 p-r-0">
+                                <i class="fa fa-calendar f-4p5"></i>
+                                <span class="detail-key m-l-1"> {{ loginCtrl.user.dateOfBirth }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row me-info">
+                        <div>
+                            <div class="col-xs-12 p-r-0">
+                                <i class="fa fa-envelope f-4p5 pull-left"></i>
+                                <span class="emailId detail-key m-l-1" style="width: 85%;float: left;"> {{ loginCtrl.user.email }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row me-info">
+                        <div class="col-xs-12 p-r-0">
+                            <span class="detail-key m-l-1" style="margin-bottom: 5px;float: left;">Profile Completeness : {{ loginCtrl.user.profileCompletePercentage || 30 }}%</span>
+                        </div>
+                        <div class="col-xs-12 p-r-0">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar"
+                                     aria-valuenow="{{ loginCtrl.user.profileCompletePercentage || 30 }}"
+                                     aria-valuemin="0" aria-valuemax="100"
+                                     style="width: {{ loginCtrl.user.profileCompletePercentage || 30 }}%">
+                                    <span class="sr-only">{{ loginCtrl.user.profileCompletePercentage || 30 }}% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-12 p-0 me-info">
+                    <div class="col-xs-12 p-0">
+                        <div class="alert alert-success caps p-2 f-3p5" role="alert">
+                            <i class="fa fa-flag"></i> Current Location
+                        </div>
+                    </div>
+                    <div class="col-xs-12 p-0">
+                        <div class="form-group col-xs-12 p-t-0">
+                            <span class="col-xs-3" style="font-weight: bold;">City</span>
+                            <span class="col-xs-2" style="font-weight: bold;">:</span>
+                            <span class="col-xs-7" ng-if="loginCtrl.user.currentCity == ''"> Not Set</span>
+                            <span class="col-xs-7 first-capital" ng-if="loginCtrl.user.currentCity != ''"> {{ loginCtrl.user.currentCity }}</span>
+                        </div>
+                        <div class="form-group col-xs-12 p-t-0">
+                            <span class="col-xs-3" style="font-weight: bold;">State</span>
+                            <span class="col-xs-2" style="font-weight: bold;">:</span>
+                            <span class="col-xs-7" ng-if="loginCtrl.user.currentLocationState == ''"> Not Set</span>
+                            <span class="col-xs-7 first-capital" ng-if="loginCtrl.user.currentLocationState != ''"> {{ loginCtrl.user.currentLocationState }}</span>
+                        </div>
+                        <div class="form-group col-xs-12 p-t-0">
+                            <span class="col-xs-3" style="font-weight: bold;">Country</span>
+                            <span class="col-xs-2" style="font-weight: bold;">:</span>
+                            <span class="col-xs-7" ng-if="loginCtrl.user.currentLocationCountry == ''"> Not Set</span>
+                            <span class="col-xs-7 first-capital" ng-if="loginCtrl.user.currentLocationCountry != ''"> {{ loginCtrl.user.currentLocationCountry }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

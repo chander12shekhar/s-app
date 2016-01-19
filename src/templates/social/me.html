@@ -1,0 +1,55 @@
+<div class="social-list"
+         ng-controller="SocialController as social">
+
+    <div class="scrollable-header foodee-navbar">
+
+        <div class="col-xs-4 p-0 pull-left to-the-top inherit-height">
+            <div class="btn btn-navbar social-post-button center-text">
+                <a href="#/socials/checkin" class="foodee-navbar-button">
+                    <i class=" fa fa-check-square-o"></i>
+                    <span class="navbar-label"> Check-in</span>
+                </a>
+            </div>
+        </div>
+
+
+        <div class="col-xs-4 title">
+            <div>My social</div>
+        </div>
+
+        <div class="p-0 col-xs-4 inherit-height">
+            <div class="btn btn-navbar pull-right social-post-button center-text">
+                <a href="#/socials/post" class="foodee-navbar-button">
+                    <i class="fa fa-envelope-o"></i>
+                    <span class="navbar-label"> Post</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="scrollable" ng-class="front.class" style="margin-top: 8vw;padding-bottom: 8vw;">
+    <div class="scrollable-content  scroll-top">
+        <div class="col-xs-12 con">
+            <ul infinite-scroll="social.posts.nextPage()"
+                infinite-scroll-container="'.social-list .scrollable-content'"
+                infinite-scroll-disabled="social.posts.busy">
+                <li ng-repeat="item in social.posts.items">
+                    <div ng-show="item.dtype == 'simple_post' || item.dtype == 'eatery_post' || item.dtype == 'voucher_post'
+                                || item.dtype == 'badge_post' || item.dtype == 'image_post'">
+                        <social-item item="item" user="social.user" lists="social.posts.items"></social-item>
+                    </div>
+                </li>
+                <li ng-show="social.posts.busy">
+                    <ng-include src=" 'list-loader.html' "></ng-include>
+                </li>
+            </ul>
+            <div class="no-data" ng-show="social.posts.items.length == 0 && !social.posts.busy">
+                <div class="alert alert-warning" role="alert">There are no available posts to display</div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,216 @@
+<div class="scrollable eatery-list" ng-class="front.class" ng-controller="EateriesListController as eatListCtrl">
+    <div class="scrollable-header">
+        <div class="col-xs-12 secondary-top-tab-scroll">
+            <ul class="nav nav-tabs tabbable">
+                <li ui-class="{'active': activeTab == 1}">
+                    <a ui-set="{'activeTab': 1}" data-toggle="tab"
+                       ng-click="eatListCtrl.tabMenuSelected('all')">All Eateries</a>
+                </li>
+                <li ui-class="{'active': activeTab == 2}" ng-if="eatListCtrl.loggedIn">
+                    <a ui-set="{'activeTab': 2}" data-toggle="tab" ng-click="eatListCtrl.tabMenuSelected('favourites')">
+                        Favourite Eateries</a>
+                </li>
+                <li ui-class="{'active': activeTab == 3}" ng-if="eatListCtrl.loggedIn">
+                    <a ui-set="{'activeTab': 3}" data-toggle="tab"
+                       ng-click="eatListCtrl.tabMenuSelected('recommended')">Recommended Eateries</a>
+                </li>
+                <li ui-class="{'active': activeTab == 4}" ng-if="eatListCtrl.loggedIn">
+                    <a ui-set="{'activeTab': 4}" data-toggle="tab" ng-click="eatListCtrl.tabMenuSelected('my')">My
+                        Eateries</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="scrollable-content">
+        <div ui-if="activeTab == 1" class="con">
+            <ul infinite-scroll="eatListCtrl.eateriesList.nextPage()"
+                infinite-scroll-container="'.eatery-list .scrollable-content'"
+                infinite-scroll-disabled="eatListCtrl.eateriesList.busy">
+                <li ng-repeat="eatery in eatListCtrl.eateriesList.items">
+                    <div class="row">
+                        <div class="col col-xs-6 eatery-card">
+                            <a ng-click="eatListCtrl.viewEatery('all',eatery.id)">
+                                <img ng-src="{{eatery.thumbImagePath}}" fallback-src="images/eateries/eatery_img_not_available.jpg">
+                            </a>
+                        </div>
+
+                        <div class="col col-xs-6 info-container">
+                            <div class="eatery-name">
+                                <a ng-click="eatListCtrl.viewEatery('all',eatery.id)">
+                                    <h5 class="name title-label-color m-0" ng-bind="eatery.name"></h5>
+                                </a>
+                            </div>
+                            <div class="eatery-rating" style="margin: 0;">
+                                <p>{{eatery.address.city}}, {{eatery.address.country}}</p>
+                            </div>
+                            <div class="col-xs-12 p-0">
+                                <div class="eatery-rating">
+                                    <p style="padding-left: 0.5vw;">Overall Rating</p>
+                                    <rating class="col-xs-7 p-0" value="{{eatery.overAllRating}}"></rating>
+                                    <div class="veg-nonveg veg-nonveg-home col-xs-5 pull-right">
+                                        <div class="nonveg-border" title="Non-Veg" ng-show="eatery.menuType === 'nonveg' || eatery.menuType === 'both'">
+                                            <img src="images/eateries/n-veg.png" />
+                                        </div>
+                                        <div class="veg-border" title="Veg" ng-show="eatery.menuType === 'veg' || eatery.menuType === 'both'">
+                                            <img src="images/eateries/veg.png" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li ng-show="eatListCtrl.eateriesList.busy">
+                    <ng-include src=" 'list-loader.html' "></ng-include>
+                </li>
+            </ul>
+            <div class="no-data" ng-show="eatListCtrl.eateriesList.items.length == 0 && !eatListCtrl.eateriesList.busy">
+                <div class="alert alert-warning" role="alert">There are no available eateries to display</div>
+            </div>
+        </div>
+        <div ui-if="activeTab == 2">
+            <ul infinite-scroll="eatListCtrl.eateriesList.nextPage()"
+                infinite-scroll-container="'.eatery-list .scrollable-content'"
+                infinite-scroll-disabled="eatListCtrl.eateriesList.busy">
+                <li ng-repeat="eatery in eatListCtrl.eateriesList.items">
+                    <div class="row">
+                        <div class="col col-xs-6 eatery-card">
+                            <a ng-click="eatListCtrl.viewEatery('favourites',eatery.id)">
+                                <img ng-src="{{eatery.thumbImagePath}}" fallback-src="images/eateries/eatery_img_not_available.jpg">
+                            </a>
+                        </div>
+                        <div class="col col-xs-6 info-container">
+                            <div class="eatery-name">
+                                <a ng-click="eatListCtrl.viewEatery('favourites',eatery.id)">
+                                    <h5 class="name title-label-color" ng-bind="eatery.name"></h5>
+                                </a>
+                            </div>
+                            <div class="eatery-rating" style="margin: 0;">
+                                <p>{{eatery.address.city}}, {{eatery.address.country}}</p>
+                            </div>
+                            <div class="col-xs-12 p-0">
+                                <div class="eatery-rating">
+                                    <p style="padding-left: 0.5vw;">Overall Rating</p>
+                                    <rating class="col-xs-7 p-0" value="{{eatery.overAllRating}}"></rating>
+                                    <div class="veg-nonveg veg-nonveg-home col-xs-5 pull-right">
+                                        <div class="nonveg-border" title="Non-Veg" ng-show="eatery.menuType === 'nonveg' || eatery.menuType === 'both'">
+                                            <img src="images/eateries/n-veg.png" />
+                                        </div>
+                                        <div class="veg-border" title="Veg" ng-show="eatery.menuType === 'veg' || eatery.menuType === 'both'">
+                                            <img src="images/eateries/veg.png" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                </li>
+                <li ng-show="eatListCtrl.eateriesList.busy">
+                    <ng-include src=" 'list-loader.html' "></ng-include>
+                </li>
+            </ul>
+            <div class="no-data" ng-show="eatListCtrl.eateriesList.items.length == 0 && !eatListCtrl.eateriesList.busy">
+                <div class="alert alert-warning" role="alert">Sorry! You have not marked any of the eateries as your favourite.
+                    Go ahead and view all eateries or <a ng-click="eatListCtrl.createEatery('favourites')">CREATE</a> one of your favourite eateries!</div>
+            </div>
+        </div>
+        <div ui-if="activeTab == 3">
+            <ul infinite-scroll="eatListCtrl.eateriesList.nextPage()"
+                infinite-scroll-container="'.eatery-list .scrollable-content'"
+                infinite-scroll-disabled="eatListCtrl.eateriesList.busy">
+                <li ng-repeat="eatery in eatListCtrl.eateriesList.items">
+                    <div class="row">
+                        <div class="col col-xs-6 eatery-card">
+                            <a ng-click="eatListCtrl.viewEatery('recommended',eatery.id)">
+                                <img ng-src="{{eatery.thumbImagePath}}" fallback-src="images/eateries/eatery_img_not_available.jpg">
+                            </a>
+                        </div>
+                        <div class="col col-xs-6 info-container">
+                            <div class="eatery-name">
+                                <a ng-click="eatListCtrl.viewEatery('recommended',eatery.id)">
+                                    <h5 class="name title-label-color" ng-bind="eatery.name"></h5>
+                                </a>
+                            </div>
+                            <div class="eatery-rating" style="margin: 0;">
+                                <p>{{eatery.address.city}}, {{eatery.address.country}}</p>
+                            </div>
+                            <div class="col-xs-12 p-0">
+                                <div class="eatery-rating">
+                                    <p style="padding-left: 0.5vw;">Overall Rating</p>
+                                    <rating class="col-xs-7 p-0" value="{{eatery.overAllRating}}"></rating>
+                                    <div class="veg-nonveg veg-nonveg-home col-xs-5 pull-right">
+                                        <div class="nonveg-border" title="Non-Veg" ng-show="eatery.menuType === 'nonveg' || eatery.menuType === 'both'">
+                                            <img src="images/eateries/n-veg.png" />
+                                        </div>
+                                        <div class="veg-border" title="Veg" ng-show="eatery.menuType === 'veg' || eatery.menuType === 'both'">
+                                            <img src="images/eateries/veg.png" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                </li>
+                <li ng-show="eatListCtrl.eateriesList.busy">
+                    <ng-include src=" 'list-loader.html' "></ng-include>
+                </li>
+            </ul>
+            <div class="no-data" ng-show="eatListCtrl.eateriesList.items.length == 0 && !eatListCtrl.eateriesList.busy">
+                <div class="alert alert-warning" role="alert">Sorry ! Currently we do not have any eateries that match your Location.</div>
+                <div class="col-xs-12 text-center" style="padding: 3vw 0vw 5vw 0vw;">
+                    <button class="btn-foodee" ng-click="eatListCtrl.createEatery('recommended')">Create Eatery</button>
+                </div>
+            </div>
+        </div>
+        <div ui-if="activeTab == 4">
+            <ul infinite-scroll="eatListCtrl.eateriesList.nextPage()"
+                infinite-scroll-container="'.eatery-list .scrollable-content'"
+                infinite-scroll-disabled="eatListCtrl.eateriesList.busy">
+                <li ng-repeat="eatery in eatListCtrl.eateriesList.items">
+                    <div class="row">
+                        <div class="col col-xs-6 eatery-card">
+                            <a ng-click="eatListCtrl.viewEatery('my',eatery.id)">
+                                <img ng-src="{{eatery.thumbImagePath}}"
+                                     fallback-src="images/eateries/eatery_img_not_available.jpg">
+                            </a>
+                        </div>
+                        <div class="col col-xs-6 info-container">
+                            <div class="eatery-name">
+                                <a ng-click="eatListCtrl.viewEatery('my',eatery.id)">
+                                    <h5 class="name title-label-color" ng-bind="eatery.name"></h5>
+                                </a>
+                            </div>
+                            <div class="eatery-rating" style="margin: 0;">
+                                <p>{{eatery.address.city}}, {{eatery.address.country}}</p>
+                            </div>
+                            <div class="col-xs-12 p-0">
+                                <div class="eatery-rating">
+                                    <p style="padding-left: 0.5vw;">Overall Rating</p>
+                                    <rating class="col-xs-7 p-0" value="{{eatery.overAllRating}}"></rating>
+                                    <div class="veg-nonveg veg-nonveg-home col-xs-5 pull-right">
+                                        <div class="nonveg-border" title="Non-Veg" ng-show="eatery.menuType === 'nonveg' || eatery.menuType === 'both'">
+                                            <img src="images/eateries/n-veg.png" />
+                                        </div>
+                                        <div class="veg-border" title="Veg" ng-show="eatery.menuType === 'veg' || eatery.menuType === 'both'">
+                                            <img src="images/eateries/veg.png" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                </li>
+                <li ng-show="eatListCtrl.eateriesList.busy">
+                    <ng-include src=" 'list-loader.html' "></ng-include>
+                </li>
+            </ul>
+            <div class="no-data" ng-show="eatListCtrl.eateriesList.items.length == 0 && !eatListCtrl.eateriesList.busy">
+                <div class="alert alert-warning" role="alert">Sorry! You have not created any eateries yet. Why don't you create one?</div>
+                <div class="col-xs-12 text-center" style="padding: 3vw 0vw 5vw 0vw;">
+                    <button class="btn-foodee" ng-click="eatListCtrl.createEatery('my')">Create Eatery</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

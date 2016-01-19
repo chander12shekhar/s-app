@@ -1,0 +1,26 @@
+.search-bar {
+  background:  @color-red;
+  font-family: @app-italic-font;
+  .row {
+    padding-bottom: 1vw;
+  }
+  .dropdown-menu {
+    width: 100%;
+    padding:0px;
+    z-index: 999999 !important;
+    .active > a, .active > a:focus {
+       background-color: @color-red;
+    }
+
+    li {
+      font-size: 4vw;
+    }
+  }
+  .delete-btn{
+    position: absolute;
+    top: 2vw;
+    right: 3vw;
+    font-size: 5vw;
+    color: @color-semi-light-gray;
+  }
+}

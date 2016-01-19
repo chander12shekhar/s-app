@@ -1,0 +1,26 @@
+<section class="container review-launch" ng-controller="RecipeDetailController">
+  <header>
+    <div class="navbar navbar-app navbar-secondary navbar-fixed-top navbar-absolute-top">
+      <nav class="btn-group justified" >
+        <div class="btn btn-navbar-secondary secondary-title">Reviews</div>
+      </nav>
+    </div>
+  </header>
+  <section class="scrollable-content review-launch-margin">
+    <div class="secondary-navbar-gutter-margin container-fluid">
+      <div class="row centered">
+        <div class="font-default">There are no reviews.</div>
+        <img class="img-responsive" ng-src="images/receipe/emptyreview.png" fallback-src="images/receipe/emptyreview.png">
+        <div class="font-medium">Be the first one to review.</div>
+        <div>
+          <button class="centered primary-btn" ui-turn-on="modalRating">Review Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+<div ui-content-for="modals">
+    <div ng-include="'receipe/recipe-review-textarea.html'"></div>
+    <div ng-include="'receipe/recipe-modal.html'"></div>
+</div>
+

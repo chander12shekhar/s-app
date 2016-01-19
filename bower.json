@@ -1,0 +1,33 @@
+{
+  "name": "food-app",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "angular": "1.x",
+    "angular-cookies": "1.x",
+    "angular-route": "1.x",
+    "angular-resource": "1.x",
+    "mobile-angular-ui": "1.2.x",
+    "font-awesome": "4.2",
+    "bootstrap": "3.x",
+    "ngInfiniteScroll": "~1.2.1",
+    "ngmap": "~1.7.10",
+    "photoswipe": "~4.0.8",
+    "angularjs-socialshare": "~0.1.7",
+    "ngCordova": "~0.1.17-alpha",
+    "angular-ui-router": "0.2.15",
+    "angular-socialshare": "~1.4.1",
+    "ngOpenFB": "*",
+    "angularjs-dropdown-multiselect": "1.5.2",
+    "angular-bootstrap": "0.13.2",
+    "angular-svg-round-progressbar": "0.2.10",
+    "ng-cordova-oauth": "~0.1.4",
+    "progressbar.js": "*",
+    "angular-base64": "v2.0.5",
+    "ng-cordova-oauth": "*"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.x",
+    "angularjs-dropdown-multiselect": "~1.5.2"
+  }
+}

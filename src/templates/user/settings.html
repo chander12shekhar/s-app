@@ -1,0 +1,24 @@
+<section id="profile-section"
+         class="app-body section container-fluid privacy scrollable"
+         xmlns="http://www.w3.org/1999/html" ng-controller="SettingsController as ctrl">
+
+    <div class="scrollable-header foodee-navbar">
+        <div class="col-xs-12 title"><div>Settings</div></div>
+    </div>
+
+    <a class="list-group-item" ng-click="ctrl.editProfilePage()">
+        <i class="menu-icons fa fa-user"></i> Profile
+    </a>
+
+    <a class="list-group-item" ng-click="ctrl.changePasswordPage()" ng-if="ctrl.user.socialProvider == 'FOODEEBUDDEE'">
+        <i class="menu-icons fa fa-lock"></i> Security
+    </a>
+
+    <a class="list-group-item" ng-click="ctrl.privacyPage()">
+        <i class="menu-icons fa fa-eye-slash"></i> Privacy
+    </a>
+
+    <a class="list-group-item" ng-click="ctrl.mealPreferencePage()">
+        <i class="menu-icons fa fa-ellipsis-h"></i> Meal Preferences
+    </a>
+</section>

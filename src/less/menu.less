@@ -1,0 +1,123 @@
+.section {
+    background: @bgcolor;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.nav-tabs {
+    background-color: @color-red;
+    margin: 0;
+    color: @color-header;
+    font-size: 2vw;
+    font-weight: bold;
+    text-transform: uppercase !important;
+    border: none;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    font-size: 3.2vw;
+    height: 7vw;
+    color: @color-header;
+    border: none;
+    border-bottom:solid @color-header 3px;
+    background-color: @color-red;
+}
+
+.nav-tabs>li {
+    margin-bottom: 0;
+}
+
+.nav-tabs>li>a {
+    padding-top: 3vw;
+    margin: 0vw;
+    height: 10vw;
+    font-size: 3.2vw;
+    color: @color-header;
+    border-radius: 0;
+}
+
+
+
+/* hover tab color */
+.nav-tabs>li>a:hover {
+    font-size: 3.2vw;
+    height: 10vw;
+    border-color: @color-titles;
+}
+
+
+
+.menu {
+    height: 100%;
+    ul {
+        height: 100%;
+        li {
+            height: 30%;
+            position: relative;
+            a {
+                width: 30vw;
+                height: 30vw;
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                -webkit-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                background-size: contain;
+                background-repeat: no-repeat;
+                line-height: 60vw;
+                text-align: center;
+                //color: @color-text;
+                font-weight: 400;
+                font-family: @app-medium-font;
+                font-size: 5vw;
+            }
+        }
+
+        li.uppercase {
+            text-transform: uppercase;
+        }
+        li.lowercase {
+            text-transform: lowercase;
+        }
+        li.capitalize {
+            text-transform: capitalize;
+        }
+        li.item {
+            border-bottom: 0.1vw solid @color-container-BG-border;
+            width: 100%;
+        }
+       
+    }
+
+     .firstItem {
+            border-bottom: 0.1vw solid @color-container-BG-border;
+            width: 100%;
+        }
+}
+
+.firstrow {
+    min-height: 5%;
+}
+
+.paddingtop {
+    min-height: 15%;
+}
+
+.secondrow {
+    min-height: 30%;
+}
+
+.thirdrow {
+    min-height: 30%;
+}
+
+.fourthrow {
+    min-height: 25%;
+}
+
+.homefirstrow {
+    min-height: 3%;
+}

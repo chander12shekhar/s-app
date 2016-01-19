@@ -1,0 +1,130 @@
+<div class="eatery-menu-page reviews-list" ng-controller="EateryReviewController as reviewCtrl">
+    <div class="scrollable-header foodee-navbar">
+        <div class="navbar-brand-center title" ng-if="!eatery.simpleReview && !eatery.advReview">
+            <div>SIMPLE REVIEW</div>
+        </div>
+        <div class="col-xs-12 secondary-top-tab-scroll" ng-if="eatery.simpleReview || eatery.advReview">
+            <ui-state id='activeTab' default='1'></ui-state>
+            <ul class="nav nav-tabs tabbable">
+                <li ui-class="{'active': activeTab == 1}">
+                    <a ui-set="{'activeTab': 1}" data-toggle="tab" ng-click="reviewCtrl.tabMenuSelected('all')">ALL</a>
+                </li>
+                <li ui-class="{'active': activeTab == 2}">
+                    <a ui-set="{'activeTab': 2}" data-toggle="tab" ng-click="reviewCtrl.tabMenuSelected('favourable')">FAVOURABLE</a>
+                </li>
+                <li ui-class="{'active': activeTab == 3}">
+                    <a ui-set="{'activeTab': 3}" data-toggle="tab" ng-click="reviewCtrl.tabMenuSelected('critical')">CRITICAL</a>
+                </li>
+                <li ui-class="{'active': activeTab == 4}">
+                    <a ui-set="{'activeTab': 4}" data-toggle="tab" ng-click="reviewCtrl.tabMenuSelected('detailed')">ADVANCE</a>
+                </li>
+                <li ui-class="{'active': activeTab == 5}">
+                    <a ui-set="{'activeTab': 5}" data-toggle="tab" ng-click="reviewCtrl.tabMenuSelected('my')">MY REVIEW</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="scrollable" style="margin-top: 8vw;padding-bottom: 8vw;">
+        <div class="scroll-top scrollable-content">
+            <div ng-show="reviewCtrl.busy">
+                <ng-include src=" 'list-loader.html' "></ng-include>
+            </div>
+            <div class="display-review" ng-show="!reviewCtrl.busy">
+                <div class="simple-review-area col-xs-12"  style="padding: 2vw 15px;" ng-if="!eatery.simpleRating && !eatery.advRating">
+                    Please give us your current Rating to Review this Eatery.
+                    <div class="col-xs-12 text-center">
+                        <button class="rate-submit" ng-click="reviewCtrl.giveSimpleRate()">Rate Now</button>
+                    </div>
+                </div>
+                <div class="simple-review-area col-xs-12" ng-if="(eatery.simpleRating || eatery.advRating) && (!eatery.simpleReview && !eatery.advReview)" >
+                    <span class="title-text">Title</span><span class="pull-right count-total">Min:5.Current:{{reviewCtrl.simpleReviewTitle.length}}</span>
+                    <div class="form-group">
+                        <input class="form-control" maxlength="50" type="text" ng-model="reviewCtrl.simpleReviewTitle"/>
+                    </div>
+                    <span class="title-text">Content</span><span class="pull-right count-total">Min:10.Current:{{reviewCtrl.simpleReviewText.length}}</span>
+                    <div class="form-group">
+                        <textarea rows="4" class="form-control" maxlength="300" ng-model="reviewCtrl.simpleReviewText"></textarea>
+                    </div>
+                    <p>
+                        <button class="rate-submit" ng-click="reviewCtrl.submitSimpleReview()">Submit</button>
+                        <button class="rate-submit pull-right" ng-click="reviewCtrl.viewAdvanceRatingPage()">Advance Review</button>
+                    </p>
+                </div>
+                <div class="scrollable-header" ng-if="!eatery.simpleReview && !eatery.advReview">
+                    <div class="col-xs-12 secondary-top-tab-scroll">
+                        <ui-state id='activeTab' default='1'></ui-state>
+                        <ul class="nav nav-tabs tabbable">
+                            <li ui-class="{'active': activeTab == 1}">
+                                <a ui-set="{'activeTab': 1}" data-toggle="tab" ng-click="reviewCtrl.tabMenuSelected('all')">ALL</a>
+                            </li>
+                            <li ui-class="{'active': activeTab == 2}">
+                                <a ui-set="{'activeTab': 2}" data-toggle="tab" ng-click="reviewCtrl.tabMenuSelected('favourable')">FAVOURABLE</a>
+                            </li>
+                            <li ui-class="{'active': activeTab == 3}">
+                                <a ui-set="{'activeTab': 3}" data-toggle="tab" ng-click="reviewCtrl.tabMenuSelected('critical')">CRITICAL</a>
+                            </li>
+                            <li ui-class="{'active': activeTab == 4}">
+                                <a ui-set="{'activeTab': 4}" data-toggle="tab" ng-click="reviewCtrl.tabMenuSelected('detailed')">ADVANCE</a>
+                            </li>
+                            <li ui-class="{'active': activeTab == 5}">
+                                <a ui-set="{'activeTab': 5}" data-toggle="tab" ng-click="reviewCtrl.tabMenuSelected('my')">MY REVIEW</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="scrollable-content">
+                    <div class="con" ng-show="!reviewCtrl.busy">
+                        <ul>
+                            <li ng-repeat="review in reviewCtrl.reviewsList.items">
+                                <div class="col-xs-12 review-card">
+                                    <div style="color: initial;" class="col col-xs-12 p-0">
+                                        <div class="col col-xs-2 user-image">
+                                            <img class="img-circle" ng-src="{{review.creator.thumbImagePath}}" fallback-src="images/commons/avatar.jpg"/>
+                                        </div>
+                                        <div class="col col-xs-10 user-reviews">
+                                            <h5 class="col col-xs-12 u-name">
+                                                {{review.creator.fullname}}
+                                            </h5>
+                                            <div class="col-xs-12 date-time">
+                                                <p>{{ review.createdOn | date:'MMM d, y h:mm a' }}</p>
+                                            </div>
+                                            <a style="color: initial;" href="{{reviewCtrl.getReviewLink(review,eatery.id)}}" class="col col-xs-10 u-review-title">
+                                                {{review.title}}
+                                            </a>
+                                            <a style="color: initial;" href="{{reviewCtrl.getReviewLink(review,eatery.id)}}" class="col col-xs-10 u-review">
+                                                {{review.content}}
+                                            </a>
+                                            <a class="col-xs-1 pull-right" href="{{reviewCtrl.getReviewLink(review,eatery.id)}}" style="min-width: 40px;"><i style="font-size: 7vw;" class="fa fa-angle-right"></i></a>
+                                            <div class="col-xs-12 u-rating">
+                                                <div class="u-comments">
+                                                    <i class="fa fa-comment"></i><span>{{review.comments.length}}</span>
+                                                </div>
+                                                <rating class="pull-left rating-right" value="{{review.rating}}"></rating>
+                                                <span ng-show="review.yesCount == 1 ">{{review.yesCount}} foodee found it useful.</span>
+                                                <span ng-show="review.yesCount > 1 ">{{review.yesCount}} foodees found it useful.</span>
+                                                <!--<div class="pull-right u-social" ng-if="review.type == 'REVIEW'">
+                                                    <div class="u-comments" ng-click="reviewCtrl.likeReview(review)">
+                                                        <img src="images/icons/yummy.png" ng-show="review.like"/>
+                                                        <img src="images/icons/unyummy.png" ng-show="!review.like"/>
+                                                        <span>{{ item.like ? 'Yummy' : 'Yummy' }}</span>
+                                                    </div>
+                                                    <div class="u-comments">
+                                                        <i class="fa fa-share-alt"></i> <span>Share</span>
+                                                    </div>
+                                                </div>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <div class="no-data" ng-show="reviewCtrl.reviewsList.items.length == 0">
+                                <div class="alert alert-warning" role="alert">No reviews yet!</div>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

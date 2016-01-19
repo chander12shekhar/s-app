@@ -1,0 +1,351 @@
+<section class="section container-fluid scrollable eatery" ng-class="front.class"
+         ng-controller="EateryController as eateryCtrl">
+  <share-footer items="footerModel"></share-footer>
+  <div class="scrollable-content" ng-if="!eatery">
+    <ng-include src=" 'list-loader.html' "></ng-include>
+  </div>
+  <div class="scrollable-content" ng-if="eatery">
+    <div class="main">
+      <div class="text-center">
+        <img ng-src="{{eatery.thumbImagePath}}"
+             fallback-src="images/eateries/default_eatery_view.jpg">
+      </div>
+      <div class="details">
+        <div class="col-xs-8 p-0">
+          <h4 class="name" ng-bind="eatery.name"></h4>
+          <p class="locality" ng-if="eatery.address.locality.length > 0" ng-bind="eatery.address.locality"></p>
+          <p class="nolocality locality" ng-if="eatery.address.locality.length <= 0"></p>
+        </div>
+        <div class="col-xs-4 overall-rating">
+          <!--<div class="overall-ratings">-->
+          <rating class="rating-right eatery-rating" value="{{eatery.overAllRating}}" ng-click="eateryCtrl.showOverAllRatings(eatery.eateryRatings.length)"></rating>
+          <h5 class="main-heading ratings m-0">Overall Rating</h5>
+          <!--</div>-->
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 p-0 more-rating">
+      <div class="col-xs-8 p-0 nativity-rating">
+        <h5 class="main-heading ratings">Nativity Rating</h5>
+        <rating value="{{eatery.overAllRating}}" class="eatery-rating" ng-click="eateryCtrl.comingSoon()"></rating>
+      </div>
+      <div class="col-xs-4 advance-rating">
+        <h5 class="main-heading ratings">Advance Rating</h5>
+        <rating value="{{eatery.overAllAdvRating}}" class="eatery-rating" ng-click="eateryCtrl.comingSoon()"></rating>
+      </div>
+    </div>
+    <div class="col-xs-12 p-0 footer-group">
+      <h5 class="main-heading veg-title" ng-show="eatery.menuType === 'veg'" style="width: 100%;"><span style="float: left;margin-top: 0.2vw;"> Strictly Vegetarian</span>
+        <div class="veg-border" title="Veg">
+          <img src="images/eateries/veg.png" />
+        </div>
+      </h5>
+      <h5 class="main-heading veg-title" ng-show="eatery.menuType === 'nonveg'" style="width: 100%;"><span style="float: left;margin-top: 0.2vw;"> Strictly Non-Vegetarian</span>
+        <div class="nonveg-border" title="Non-Veg">
+          <img src="images/eateries/n-veg.png" />
+        </div>
+      </h5>
+      <h5 class="main-heading veg-title" ng-show="eatery.menuType === 'both'" style="width: 100%;"><span style="float: left;margin-top: 0.2vw;"> Serves both Vegetarian and Non-Vegetarian</span>
+        <div class="veg-border pull-left" title="Veg">
+          <img src="images/eateries/veg.png" />
+        </div>
+        <div class="nonveg-border pull-left" title="Non-Veg">
+          <img src="images/eateries/n-veg.png" />
+        </div>
+      </h5>
+    </div>
+    <div class="col-xs-12 p-0">
+      <div class="address col-xs-7">
+        <h5 class="main-heading"><i class="fa fa-building"></i> Address</h5>
+        <div>
+          <p class="doorNumber" ng-bind="eatery.address.doorNumber"></p>
+          <p class="address1" ng-bind="eatery.address.address1"></p>
+        </div>
+        <p class="city" ng-bind="eatery.address.city"></p>
+        <p class="state" ng-bind="eatery.address.state"></p>
+        <p class="country" ng-bind="eatery.address.country"></p>
+        <p class="pincode" ng-bind="eatery.address.pincode"></p>
+      </div>
+      <div class="col-xs-5 text-center" style="margin-top: 2vw;">
+        <div class="checkin-icon-lg">
+          <p class="center-block" ng-click="eateryCtrl.checkin(eatery)">
+            <i class="fa fa-map-marker fa-2x" style="padding: 2vw;"></i>
+          </p>
+        </div>
+        <p class="text-uppercase p-0" style="margin-bottom: 0;">Check-In</p>
+      </div>
+    </div>
+    <div class="contacts view-list">
+      <div class="sub-iconic-info" ng-if="eatery.address.mobile">
+        <i style="margin-top: 1vw;" class="fa fa-mobile"></i>
+        <a ng-href="tel:{{eatery.address.isdCode}}{{eatery.address.mobile}}"
+           ng-bind-template="{{eatery.address.isdCode}}{{eatery.address.mobile}}"
+           data-rel="external">
+        </a>
+      </div>
+      <div class="sub-iconic-info" ng-if="eatery.address.landline">
+        <i style="margin-top: 1vw;" class="fa fa-phone"></i>
+        <a ng-href="tel:{{eatery.address.isdCode}}{{eatery.address.landline}}"
+           ng-bind-template="{{eatery.address.isdCode}}{{eatery.address.landline}}"
+           data-rel="external">
+        </a>
+      </div>
+      <div class="fax icon" ng-if="eatery.address.fax">
+        <a ng-href="tel:{{eatery.address.isdCode}}{{eatery.address.fax}}"
+           ng-bind-template="{{eatery.address.isdCode}}{{eatery.address.fax}}"
+           data-rel="external">
+        </a>
+      </div>
+      <div class="email icon" ng-if="eatery.address.email">
+        <a ng-href="mailto:{{eatery.address.email}}"
+           ng-bind="eatery.address.email"
+           data-rel="external">
+        </a>
+      </div>
+    </div>
+    <map class="col-xs-12 p-0" center="{{eateryCtrl.position1(eatery)}}" zoom="16">
+      <marker position="{{eateryCtrl.position1(eatery)}}"
+              animation="DROP"></marker>
+    </map>
+    <div class="col-xs-12 p-0 footer-group" style="height: 10px;border-bottom: .2vh solid #ECECEC;"></div>
+    <div class="eatery-menu col-xs-12 p-0" ng-if="eatery.menus.length">
+      <h5 class="main-heading eatery-gallery icon image-option-icon"> Eatery Menu</h5>
+      <image-viewer class="image-container" list="eatery.menus"></image-viewer>
+    </div>
+    <div class="col-xs-12 p-0 eatery-photos" ng-if="eatery.photos.length">
+      <h5 class="main-heading eatery-gallery icon image-option-icon"> Eatery Gallery</h5>
+      <image-viewer class="image-container" list="eatery.photos"></image-viewer>
+    </div>
+    <div class="col-xs-12 p-0 description footer-group" ng-if="eatery.description">
+      <h5 class="main-heading">History & Description</h5>
+      <p ng-bind="eatery.description"></p>
+    </div>
+    <div class="col-xs-12 p-0 famous-list footer-group">
+      <h5 class="main-heading icon famoush-dish-icon">Famous Dishes</h5>
+      <ul ng-show="eatery.famousDishes.length">
+        <li ng-repeat="dish in eatery.famousDishes" ng-bind="dish.dish"></li>
+      </ul>
+      <div ng-show="eatery.famousDishes.length == 0">
+        <span>Not Available</span>
+      </div>
+    </div>
+    <div class="col-xs-12 p-0 timing-list footer-group">
+      <h5 class="main-heading icon time-option-icon">Timings</h5>
+      <ul ng-if="eatery.timingList.length">
+        <li ng-repeat="timings in eatery.timingList">
+          <span class="opening"
+                ng-bind-template="Opening Hours: {{timings.openingHours}}"
+                ng-if="timings.openingHours"></span>
+          <span class="happy"
+                ng-bind-template="Happy Hours: {{timings.happyHours}}"
+                ng-if="timings.happyHours"></span>
+        </li>
+      </ul>
+      <div ng-if="!eatery.timingList.length > 0">
+        <span>Not Available</span>
+      </div>
+    </div>
+    <div class="col-xs-12 p-0 footer-group">
+        <h5 class="main-heading icon money-icon" style="float: left;"> Price for 2 :</h5>
+      <span class="price-total"><span ng-show="eatery.price != 'NA'">{{eatery.currency.code}}</span> {{eatery.price}}</span>
+    </div>
+    <div class="col-xs-12 p-0 payment-options footer-group">
+      <h5 class="main-heading icon payment-option-icon">Payment Options</h5>
+      <ul ng-if="eatery.paymentOptions.length">
+        <li ng-repeat="paymentOption in eatery.paymentOptions" ng-bind="paymentOption.name"></li>
+      </ul>
+      <div ng-if="!eatery.paymentOptions.length">
+        <p>Not Available</p>
+      </div>
+    </div>
+    <div class="col-xs-12 p-0 speciality footer-group ">
+      <h5 class="main-heading icon speciality-option-icon">Speciality</h5>
+      <span ng-if="eatery.speciality.length">
+        <p ng-bind="eatery.speciality"></p>
+      </span>
+      <div ng-if="!eatery.speciality.length">
+        <p>No Speciality found</p>
+      </div>
+    </div>
+    <div class="col-xs-12 p-0 meal-types footer-group">
+        <h5 class="main-heading icon facilities-option-icon">Facilities</h5>
+        <span class="padding-1 cuisine-subval" ng-if="eatery.facilities.length">
+          <ul>
+            <li class="pull-left" ng-repeat="facility in eatery.facilities">
+              <span ng-if="$first && !$last" ng-bind="facility.name+',&nbsp;'"></span>
+              <span ng-if="$middle" ng-bind="facility.name+',&nbsp;'"></span>
+              <span ng-if="$last" ng-bind="facility.name"></span>
+            </li>
+          </ul>
+        </span>
+        <span ng-if="!eatery.facilities.length">
+          <span class="cuisine-subval">Not Available</span>
+        </span>
+    </div>
+    <div class="col-xs-12 p-0 meal-types footer-group">
+        <h5 class="main-heading icon facilities-option-icon">Features</h5>
+        <span class="padding-1 cuisine-subval" ng-if="eatery.features.length">
+          <ul>
+            <li class="pull-left" ng-repeat="feature in eatery.features">
+              <span ng-if="$first && !$last" ng-bind="feature.name+',&nbsp;'"></span>
+              <span ng-if="$middle" ng-bind="feature.name+',&nbsp;'"></span>
+              <span ng-if="$last" ng-bind="feature.name"></span>
+            </li>
+          </ul>
+        </span>
+        <span ng-if="!eatery.features.length">
+          <span class="cuisine-subval">Not Available</span>
+        </span>
+    </div>
+    <div class="col-xs-12 footer-group eatery-group">
+      <h5 class="main-heading icon cuisine-icon">Cuisine</h5>
+      <div class="col-xs-12 p-0 cuisines">
+        <span class="main-heading col-xs-4 p-0 sub-headings">Cusines
+          <span>:</span>
+        </span>
+        <span class="padding-1 col-xs-8 cuisine-subval" ng-if="eatery.cuisines.length">
+          <ul>
+            <li class="pull-left" ng-repeat="cuisine in eatery.cuisines" >
+              <span ng-if="$first && !$last" ng-bind="cuisine.name+',&nbsp;'"></span>
+              <span ng-if="$middle" ng-bind="cuisine.name+',&nbsp;'"></span>
+              <span ng-if="$last" ng-bind="cuisine.name"></span>
+            </li>
+          </ul>
+        </span>
+        <span ng-if="!eatery.cuisines.length">
+          <span class="cuisine-subval">Not Available</span>
+        </span>
+      </div>
+      <div class="col-xs-12 p-0 sub-cuisines" ng-show="eatery.subCuisines.length != 0">
+        <span class="main-heading col-xs-4 p-0 sub-headings">Sub Cusines
+          <span>:</span>
+        </span>
+        <span class="padding-1 col-xs-8 cuisine-subval">
+          <ul>
+            <li class="pull-left" ng-repeat="subCuisine in eatery.subCuisines">
+              <span ng-if="$first && !$last" ng-bind="subCuisine.name+',&nbsp;'"></span>
+              <span ng-if="$middle" ng-bind="subCuisine.name+',&nbsp;'"></span>
+              <span ng-if="$last" ng-bind="subCuisine.name"></span>
+            </li>
+          </ul>
+        </span>
+      </div>
+      <div class="col-xs-12 p-0 eatery-type">
+        <span class="main-heading col-xs-4 p-0 sub-headings">Type of Eatery
+          <span class="pull-right">:</span>
+        </span>
+        <span class="padding-1 col-xs-8 cuisine-subval" ng-if="eatery.eateryType.length">
+          <ul>
+            <li class="pull-left" ng-repeat="type in eatery.eateryType">
+              <span ng-if="$first && !$last" ng-bind="type.name+',&nbsp;'"></span>
+              <span ng-if="$middle" ng-bind="type.name+',&nbsp;'"></span>
+              <span ng-if="$last" ng-bind="type.name"></span>
+            </li>
+          </ul>
+        </span>
+        <span ng-if="!eatery.eateryType.length">
+          <span class="cuisine-subval">Not Available</span>
+        </span>
+      </div>
+      <div class="col-xs-12 p-0 meal-types">
+        <span class="main-heading col-xs-4 p-0 sub-headings">Meal Type
+          <span>:</span>
+        </span>
+        <span class="padding-1 col-xs-8 cuisine-subval" ng-if="eatery.mealTypes.length">
+          <ul>
+            <li class="pull-left" ng-repeat="type in eatery.mealTypes">
+              <span ng-if="$first && !$last" ng-bind="type.name+',&nbsp;'"></span>
+              <span ng-if="$middle" ng-bind="type.name+',&nbsp;'"></span>
+              <span ng-if="$last" ng-bind="type.name"></span>
+            </li>
+          </ul>
+        </span>
+        <span ng-if="!eatery.mealTypes.length">
+          <span class="cuisine-subval">Not Available</span>
+        </span>
+      </div>
+    </div>
+    <div class="col-xs-12 p-0 digital-contacts footer-group"
+         ng-if="eatery.eateryDigitalContacts.eateryWebsite ||
+     eatery.eateryDigitalContacts.eateryFacebook ||
+     eatery.eateryDigitalContacts.eateryTwitter ||
+     eatery.eateryDigitalContacts.eateryPinterest">
+      <h5 class="main-heading">Contacts</h5>
+      <ul>
+        <li class="website icon"
+            ng-if="eatery.eateryDigitalContacts.eateryWebsite">
+          <a ng-href="{{eatery.eateryDigitalContacts.eateryWebsite}}"
+             ng-bind="eatery.eateryDigitalContacts.eateryWebsite"
+             target="_system"
+             data-rel="external">
+          </a>
+        </li>
+        <li class="facebook icon"
+            ng-if="eatery.eateryDigitalContacts.eateryFacebook">
+          <a ng-href="{{eatery.eateryDigitalContacts.eateryFacebook}}"
+             ng-bind="eatery.eateryDigitalContacts.eateryFacebook"
+             target="_system"
+             data-rel="external">
+          </a>
+        </li>
+        <li class="twitter icon"
+            ng-if="eatery.eateryDigitalContacts.eateryTwitter">
+          <a ng-href="{{eatery.eateryDigitalContacts.eateryTwitter}}"
+             ng-bind="eatery.eateryDigitalContacts.eateryTwitter"
+             target="_system"
+             data-rel="external">
+          </a>
+        </li>
+        <li class="pinterest icon"
+            ng-if="eatery.eateryDigitalContacts.eateryPinterest">
+          <a ng-href="{{eatery.eateryDigitalContacts.eateryPinterest}}"
+             ng-bind="eatery.eateryDigitalContacts.eateryPinterest"
+             target="_system"
+             data-rel="external">
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-xs-12 p-0 options footer-group eatery-main-content">
+      <h5 class="main-heading icon other-icon"> Others</h5>
+      <div class="col-xs-12 p-0 cuisines">
+        <span class="main-heading col-xs-4 p-0 sub-headings">Attire
+          <span>:</span>
+        </span>
+        <span class="col-xs-8 p-0">{{eatery.eateryOptions.eateryAttire}}</span>
+        <span class="col-xs-8 p-0" ng-show="eatery.eateryOptions.eateryAttire == ''">NA</span>
+      </div>
+      <div class="col-xs-12 p-0 cuisines">
+        <span class="main-heading col-xs-4 p-0 sub-headings">Ambiance
+          <span>:</span>
+        </span>
+        <span class="col-xs-8 p-0">{{eatery.eateryOptions.eateryAmbience}}</span>
+        <span class="col-xs-8 p-0" ng-show="eatery.eateryOptions.eateryAmbience == ''">NA</span>
+      </div>
+      <div class="col-xs-12 p-0 cuisines">
+        <span class="main-heading col-xs-4 p-0 sub-headings">Noise Level
+          <span>:</span>
+        </span>
+        <span class="col-xs-8 p-0">{{eatery.eateryOptions.eateryNoiseLevel}}</span>
+        <span class="col-xs-8 p-0" ng-show="eatery.eateryOptions.eateryNoiseLevel == ''">NA</span>
+      </div>
+      <div class="col-xs-12 p-0 cuisines">
+        <span class="main-heading col-xs-4 p-0 sub-headings">Others
+          <span>:</span>
+        </span>
+        <span class="col-xs-8 p-0">{{eatery.eateryOptions.eateryOthers}}</span>
+        <span class="col-xs-8 p-0" ng-show="eatery.eateryOptions.eateryOthers == ''">NA</span>
+      </div>
+      <div class="col-xs-12 p-0 cuisines">
+        <span class="main-heading col-xs-4 p-0 sub-headings">Reservation
+          <span>:</span>
+        </span>
+        <span class="col-xs-8 p-0" ng-bind-template="{{eatery.eateryOptions.eateryReservationRequired
+                          ? 'Yes' : 'No'}}"></span>
+      </div>
+    </div>
+    <div ui-content-for="modals">
+      <div ng-include="'eateries/modals/overall-ratings.html'"></div>
+    </div>
+  </div>
+</section>

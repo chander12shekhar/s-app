@@ -1,0 +1,76 @@
+<div class="scrollable eatery-menu-page">
+    <div class="scrollable-header foodee-navbar">
+        <div class="p-0 col-xs-4 to-the-top inherit-height">
+            <div class="btn btn-navbar pull-left create-eatery-icon center-text">
+                <a class="foodee-navbar-button" ng-click="eatHomeCtrl.createEatery()">
+                    <i class="fa fa-pencil"></i>
+                    <span class="navbar-label"> Create</span>
+                </a>
+            </div>
+        </div>
+        <div class="col-xs-4 title">
+            <div>Eateries</div>
+        </div>
+    </div>
+    <div class="scrollable-content">
+        <div style="min-height:1vh;"></div>
+        <div class="row">
+            <div class="image-menu" >
+                <a href="#/eateries/list/all">
+                    <image src="images/eateries/eatery3.jpg" />
+                    <h4 class="eateries-label"><span class="fb-image-inside-label">All Eateries</span></h4>
+                </a>
+            </div>
+        </div>
+        <div class="row" ng-if="eatHomeCtrl.isLogged()">
+            <div class="image-menu" >
+                <a href="#/eateries/list/favourites">
+                    <image src="images/eateries/eatery4.jpg" />
+                    <h4 class="eateries-label"><span class="fb-image-inside-label">Favourite Eateries</span></h4>
+                </a>
+            </div>
+        </div>
+        <div class="row" ng-if="!eatHomeCtrl.isLogged()">
+            <div class="image-menu" >
+                <a ng-click="eatHomeCtrl.notLogged()">
+                    <image src="images/eateries/eatery4.jpg" />
+                    <h4 class="eateries-label"><span class="fb-image-inside-label">Favourite Eateries</span></h4>
+                </a>
+            </div>
+        </div>
+
+        <div class="row" ng-if="eatHomeCtrl.isLogged()">
+            <div class="image-menu" >
+                <a href="#/eateries/list/recommended">
+                    <image src="images/eateries/eatery2.jpg" />
+                    <h4 class="eateries-label"><span class="fb-image-inside-label">Recommended Eateries</span></h4>
+                </a>
+            </div>
+        </div>
+        <div class="row" ng-if="!eatHomeCtrl.isLogged()">
+            <div class="image-menu" >
+                <a ng-click="eatHomeCtrl.notLogged()">
+                    <image src="images/eateries/eatery2.jpg" />
+                    <h4 class="eateries-label"><span class="fb-image-inside-label">Recommended Eateries</span></h4>
+                </a>
+            </div>
+        </div>
+
+        <div class="row" ng-if="eatHomeCtrl.isLogged()">
+            <div class="image-menu" >
+                <a href="#/eateries/list/my">
+                    <image src="images/eateries/eatery1.jpg" />
+                    <h4 class="eateries-label"><span class="fb-image-inside-label">My Eateries</span></h4>
+                </a>
+            </div>
+        </div>
+        <div class="row" ng-if="!eatHomeCtrl.isLogged()">
+            <div class="image-menu" >
+                <a ng-click="eatHomeCtrl.notLogged()">
+                    <image src="images/eateries/eatery1.jpg" />
+                    <h4 class="eateries-label"><span class="fb-image-inside-label">My Eateries</span></h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

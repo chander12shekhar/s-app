@@ -1,0 +1,145 @@
+<div class="scrollable eatery-list">
+    <div class="scrollable-header foodee-navbar ">
+        <div class="col-xs-12 secondary-top-tab-scroll">
+            <ui-state id='activeTab' default='1'></ui-state>
+            <ul class="nav nav-tabs tabbable">
+                <li ui-class="{'active': activeTab == 1}">
+                    <a ui-set="{'activeTab': 1}" data-toggle="tab">Overview</a>
+                </li>
+                <li ui-class="{'active': activeTab == 2}">
+                    <a ui-set="{'activeTab': 2}" data-toggle="tab">{{ receipeCtrl.receipe_Ingredients }}</a>
+                </li>
+                <!--<li ui-class="{'active': activeTab == 3}">-->
+                    <!--<a ui-set="{'activeTab': 3}" data-toggle="tab">-->
+                        <!--Preparation-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li ui-set="{'activeTab': activeTab == 4}">-->
+                    <!--<a ui-set="{'activeTab': 4}" data-toggle="tab">-->
+                        <!--Review-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li ui-set="{'activeTab': activeTab == 5}">-->
+                    <!--<a ui-set="{'activeTab': 4}" data-toggle="tab">-->
+                        <!--Others-->
+                    <!--</a>-->
+                <!--</li>-->
+            </ul>
+        </div>
+    </div>
+
+    <div class="scrollable scrollable-content tabbable-recipe-details-section">
+        <div ui-if="activeTab == 1" class="recipe-overview">
+
+            <div class="row">
+                <div class="col col-xs-12 main-photo">
+                    <img ng-src="{{receipeCtrl.receipe.thumbImagePath}}"
+                         fallback-src="images/receipe/receipe-detail-bg.png">
+                    <div class="record-details">
+                        <div class="column-left">
+                            <div class="record-name">
+                                {{ receipeCtrl.receipe.name }}
+                            </div>
+                            <div class="record-author">
+                                {{ receipeCtrl.receipe.author }} | More recipes
+                            </div>
+                        </div>
+                        <div class="column-left">
+                            <div class="pull-right">
+                                <div class="record-stats pull-right">
+                                    <span class="soft">Serves:</span> <span class="strong">14</span>
+                                </div>
+                                <div class="record-stats clear pull-right">
+                                    <span class="soft">Total:</span> <span class="strong">5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="receipemain">
+                <!-- <img ng-src="{{receipeCtrl.receipe.thumbImagePath}}" ng-show="receipeCtrl.receipe.thumbImagePath"> -->
+                <!--<img class="receipeimage" ng-src="images/receipe/receipe-detail-bg.png"> -->
+
+
+                <div class="details">
+                    <div class="row row-extra-padding">
+                        <div class="col-xs-9 no-padding">
+                            <h2 class="receipename app-medium" ng-bind="receipeCtrl.receipe.name"></h2>
+                        </div>
+                        <div class="col-xs-3 no-padding small-fonts label-align-right">
+                            <span>{{receipeCtrl.receipe.serves}}</span><span class="font-medium">4</span>
+                        </div>
+                    </div>
+                    <div class="row row-extra-padding">
+                        <div class="col-xs-9 no-padding small-fonts">
+                            <p>{{receipeCtrl.receipe.author}} | {{receipeCtrl.receipe.allReceipe}}</p>
+                        </div>
+                        <div class="col-xs-3 no-padding small-fonts label-align-right">
+                            <span>TotalViews </span><span class="font-medium" ng-bind="receipeCtrl.receipe.hits"></span>
+                        </div>
+                    </div>
+                </div>
+                </img>
+            </div>
+            <div class="container-fluid overall-ratings-container">
+                <div class="row">
+                    <div class="col col-xs-6 overall-ratings label-align-left">
+                        <label>Overall Rating</label>
+                        <rating value="{{receipeCtrl.receipe.overAllRating}}"></rating>
+                    </div>
+                    <div class="col col-xs-6 overall-ratings label-align-right">
+                        <label>Advance Rating</label>
+                        <rating value="{{receipeCtrl.receipe.recipeAdvanceRatings}}"></rating>
+                        <i class="ion-ios-heart-outline social-icon"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- Yummy Favorite-->
+            <!-- <yummyfavorite-builder data="receipeCtrl.receipe.yummyDetail"></yummyfavorite-builder> -->
+            <div class="container-fluid allCusines bordor-allCusines">
+                <div class="row" ng-repeat="record in receipeCtrl.allCusines">
+                    <div class="col-xs-5 label-semi-bold removedPadding" ng-bind="record.label"></div>
+                    <div class="col-xs-1">:</div>
+                    <div class="col-xs-3 label-semi-bold label-italic" ng-bind="record.name"></div>
+                </div>
+            </div>
+            <div class="container-fluid allCusines-time">
+                <div class="row">
+                    <div class="col-xs-5 label-semi-bold removedPadding">{{receipeCtrl.total_prep_time}}</div>
+                    <div class="col-xs-1">:</div>
+                    <div class="col-xs-5 label-semi-bold label-italic">{{receipeCtrl.receipe.totalPreparationTime}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5 label-semi-bold removedPadding">{{receipeCtrl.total_cook_time}}</div>
+                    <div class="col-xs-1">:</div>
+                    <div class="col-xs-5 label-semi-bold label-italic">{{receipeCtrl.receipe.totalCookingTime}}</div>
+                </div>
+            </div>
+            <div class="container-fluid allCusines-time">
+                <div class="row">
+                    <div class="col-xs-12 app-sub-titles removedPadding">
+                        {{receipeCtrl.storyof_recipe}} :
+                        <p ng-bind="receipeCtrl.receipe.storyOfRecipe" class="font-italic"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<footer ng-include="'receipe/recipefooter.html'"></footer>
+
+
+<div ui-content-for="modals">
+    <div ng-include="'receipe/recipe-modal-message.html'"></div>
+    <div ng-include="'receipe/recipe-modal-socialShare.html'"></div>
+    <div ng-include="'receipe/recipe-modal-comment.html'"></div>
+    <div ng-include="'receipe/recipe-modal-success.html'"></div>
+    <div ng-include="'receipe/recipe-modal-failure.html'"></div>
+    <div ng-include="'receipe/recipe-modal-future-InProgress.html'"></div>
+    <div ng-include="'receipe/recipe-modal-usernotauthorized.html'"></div>
+</div>

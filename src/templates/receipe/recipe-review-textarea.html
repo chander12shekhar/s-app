@@ -1,0 +1,19 @@
+<div class="modal modal-review" ui-if="modalReview" ui-state='modalReview' ng-controller="RecipesRatingController as ctrl">
+  <div class="modal-backdrop in"></div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <button class="close" ui-turn-off="modalReview">×</button>
+      </div>
+      <div class="modal-body">
+        <form name="testForm">
+              <textarea class="form-control" rows="3" ng-model="rvCtrl.review.body" name="reviewbody" ng-required="true" placeholder="Please write at least 140 characters about your personal experience at this eatery." ng-minlength=140 ng-model="{{ctrl.basicRating}}">
+              </textarea>
+          </form>
+      </div>
+      <div>
+        <button class="centered primary-btn" ui-turn-off="modalReview" ng-click="ctrl.submitReview()">Submit</button>
+      </div>
+      <div class="btn-primary-link" ng-click="ctrl.goFullReview()">Advance Review</div>
+  </div>
+</div>

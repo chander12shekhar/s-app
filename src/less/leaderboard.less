@@ -1,0 +1,201 @@
+.leaderboard {
+
+  color: #3e3e3e;
+  padding: 0;
+  margin: 0 auto;
+
+  h3 {
+    margin: 0 auto;
+    padding: 0;
+    font-size: 4.2vw;
+  }
+
+  a {
+    color: @color-red;
+  }
+
+  .avatar-micro {
+    width: 100% !important;
+  }
+
+  .padded {
+    padding: 1vw;
+  }
+
+  .avatar {
+    width: 25vw;
+    height: 25vw;
+  }
+  .me-info{
+    font-family: @app-italic-font;
+    font-size: 3vw;
+  }
+  .centered {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .personal-information {
+    margin-top: 1vw;
+    color: @color-red !important;
+    font-size: 3.2vw;
+    text-align: center;
+  }
+
+  .detail-key {
+    color: @color-gray-fonts;
+    font-size: 3.5vw;
+    font-weight: bold;
+  }
+
+  .progress {
+    height: 9px;
+    .progress-bar-success{
+      background-color:@color-icon-green;
+    }
+  }
+
+  .row{
+    margin-top: 1vw;
+  }
+
+  .badge-info{
+    font-size: 3vw;
+    font-family: @app-italic-font;
+  }
+
+  .badge-icon {
+    width: 80%;
+    height: 80%;
+  }
+
+  .badge-position {
+    img{
+      position: absolute;
+      right: 0vw;
+      top: -4vw;
+      height: 13vh;
+    }
+  }
+
+  .no-data-available{
+      padding: 2vw 3vw;
+      width: 100%;
+      display: inline-block;
+  }
+  .detail-value {
+    color: @color-red;
+    font-weight: bold;
+  }
+
+  .badge {
+    background-color: @color-green !important;
+  }
+
+  .entry{
+    border-bottom: 0.1vw solid @color-gray;
+    height: 8vw;
+    padding-bottom: 1vw;
+  }
+
+
+  .leader-points {
+    padding: 0vw;
+    background-color: @color-header;
+  }
+
+  .type{
+    padding-left: 1.3vw;
+  }
+  .lb-tabs-section{
+    padding: 0vw;
+    margin-top: 8vw;
+    .nav-tabs{
+      background-color: @color-header;
+      border-bottom: 0.1vw solid darkgrey;
+      li.active{
+        a, a:focus{
+          color: @color-titles;
+          border-bottom: solid #cb202d 3px;
+          background-color: @color-header;
+          padding:0vw;
+        }
+      }
+      li{
+        padding: 1.6vw 3.1vw 0vw 3.1vw;
+        a{
+          padding:0vw;
+          color: @color-titles;
+          line-height: initial;
+        }
+      }
+    }
+    .sub-tab{
+        text-align: center;
+        margin: 0 auto;
+        padding: 3vw 0 0 0;
+        li{
+            display: inline-block;
+            float: initial;
+        }
+    }
+    .main-tab-title{
+        font-size: 3vw;
+        font-weight: normal;
+    }
+    .main-title{
+        padding: 1.5vw 0;
+        text-align: center;
+    }
+    .rank{
+        background-color: @color-green;
+        padding: 1vw 0 0 0;
+        border-radius: 50%;
+        height: 5vw;
+        width: 5vw;
+        text-align: center;
+        display: block;
+        color: white;
+        font-size: 2.5vw;
+    }
+    thead{
+      background-color: @color-over-light-gray;
+      th{
+        color: @color-table-header-fonts;
+      }
+    }
+    table{
+        font-family: @app-italic-font;
+        font-size: 3.6vw;
+        font-weight: 700;
+    }
+  }
+  .achievements-tab{
+    margin-top: 0;
+    ul{
+        white-space: nowrap;
+        overflow: auto;
+        overflow-y: hidden;
+        font-weight: initial;
+    }
+    .table-responsive{
+        table{
+            background-color: @color-header;
+        }
+        div{
+            max-width: 30vw;
+            text-align: center;
+            font-family: app-italic;
+            font-size: 2.5vw;
+            font-weight: bold;
+            padding: 4vw 2vw;
+            float: left;
+            img{
+                border: 1px solid @color-gray;
+                border-radius: initial;
+                background-color: @color-header;
+            }
+        }
+    }
+  }
+}

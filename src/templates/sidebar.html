@@ -1,0 +1,61 @@
+<div class="col-xs-12 p-0" style="background-color: #FFF;height: 100%;overflow-x: scroll;" ng-controller="LoginController as loginCtrl">
+
+  <h1 style="background-color: #FFF;" class="app-name"><img class="sidebar-logo" src="images/logo.png"></h1>
+    <div class="user-profile" ng-show="loginCtrl.logged">
+        <div class="row p-0">
+            <div class="col-xs-5 p-0">
+                <img ng-src="{{ loginCtrl.user.mainImage }}"
+                     fallback-src="images/commons/avatar.jpg" alt="login" class="img-circle avatar">
+            </div>
+            <div class="col-xs-7 p-0">
+                <div class="account-details">
+                    <span class="c-red" >{{ loginCtrl.user.firstName + ' ' + loginCtrl.user.lastName }}</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-xs-12 p-0" style="overflow-x: scroll;">
+        <div class="list-group" ui-turn-off='uiSidebarLeft'>
+            <a class="list-group-item" ng-click="loginCtrl.home()"><i class="menu-icons fa fa-home"></i> Home </a>
+            <a class="list-group-item" href="#/login" ng-hide="loginCtrl.logged"><i class="menu-icons fa fa-sign-in"></i> Sign In </a>
+            <a class="list-group-item" ng-click="loginCtrl.vouchersAction()">
+                <div class="menu-pic-vouchers"></div> <span>Vouchers</span>
+            </a>
+            <a class="list-group-item" ng-click="loginCtrl.eateriesAction()">
+                <div class="menu-pic-eatery"></div> <span>Eateries</span>
+            </a>
+            <a class="list-group-item" ng-click="loginCtrl.createEateryAction()">
+                <i class="sidebar-sub-icon fa fa-pencil"></i> Create Eatery
+            </a>
+            <a class="list-group-item" ng-click="loginCtrl.checkinAction()">
+                <i class="sidebar-sub-icon fa fa-map-marker"></i> Check-In
+            </a>
+            <a class="list-group-item" ng-click="loginCtrl.socialAction()">
+                <div class="menu-pic-social"></div> <span>Social</span>
+            </a>
+            <a class="list-group-item" ng-click="loginCtrl.leaderboardAction()">
+                <div class="menu-pic-lb"></div> <span>Leaderboard</span>
+            </a>
+            <a class="list-group-item" ng-click="loginCtrl.changePasswordAction()" ng-show="loginCtrl.logged">
+                <i class="menu-icons fa fa-cog"></i> Change Password
+            </a>
+            <a class="list-group-item" ng-click="loginCtrl.profileAction()" ng-show="loginCtrl.logged">
+                <i class="menu-icons fa fa-user"></i> Profile
+            </a>
+            <a class="list-group-item" ng-click="loginCtrl.settingsAction()" ng-show="loginCtrl.logged">
+                <i class="menu-icons fa fa-wrench"></i> Settings
+            </a>
+            <a class="list-group-item" ng-click="loginCtrl.refAction()" >
+                <i class="menu-icons fa fa-barcode"></i> Your Referral Code
+            </a>
+            <a class="list-group-item" ng-click="loginCtrl.logout()" ng-show="loginCtrl.logged">
+                <i class="menu-icons fa fa-sign-out"></i> Sign out
+            </a>
+            <a class="list-group-item" ng-click="loginCtrl.aboutUsAction()"><i class="menu-icons fa fa-info"></i> Why Foodeebuddee?
+            </a>
+            <a class="list-group-item" ng-click="loginCtrl.tandcAction()"><i style="margin-left: -0.7vw;" class="menu-icons fa fa-anchor"></i> T&C
+            </a>
+        </div>
+    </div>
+</div>

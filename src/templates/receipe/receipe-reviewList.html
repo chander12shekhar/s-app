@@ -1,0 +1,47 @@
+<div class="recipe-review-main-list">
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="record in data">
+            <div class="container-fluid recipe-review-list">
+                <div class="row">
+                    <img class="vertical-align img-circle img-responsive" ng-src="{{record.file.fullImageThumbPath}}" fallback-src="images/receipe/avatar.png">
+                    <div class="col col-xs-10 vertical-align recipe-review-list-inner-items">
+                        <div ng-click="itemSelected(record)">
+                            <div class="row">
+                                <div class="col col-xs-12">
+                                    <h5 class="title-label-color" ng-bind="record.title"></h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-xs-12">
+                                    <h6 class="content-text-color font-italic">{{record.reviewComments}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div ng-click="itemSelected(record)">
+                                <div class="col col-xs-1 icon-gutter-margin">
+                                    <i class="fa fa-comment">{{record.commentsCount}}</i>
+                                </div>
+                                <div class="col col-xs-1 icon-gutter-margin">
+                                    <i class="fa fa-check-circle">{{record.isUsefulCommentsCount}}</i>
+                                </div>
+                                <div class="col col-xs-4">
+                                    <rating value="{{record.reviewRatings}}"></rating>
+                                </div>
+                            </div>
+                            <div class="col col-xs-5 pull-right-icons font-light">
+                                <div class="col col-xs-6" ng-click="itemSelected(likeModelItem)">
+                                    <i class="fa {{likeModelItem.iconClass}}"><span class="{{likeModelItem.iconClassText}}">{{likeModelItem.name}}</span></i>
+                                </div>
+                                <div class="col col-xs-6 share-icon-align" ng-click="itemSelected(shareModelItem)">
+                                    <i class="fa {{shareModelItem.iconClass}}">{{shareModelItem.name}}</i>
+                                </div>
+                            </div>
+                            <!--ends here-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

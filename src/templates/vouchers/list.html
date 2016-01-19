@@ -1,0 +1,358 @@
+<div class="scrollable voucher-list" ng-class="front.class" ng-controller="VoucherController as voucherCtrl">
+    <div class="scrollable-header">
+        <div class="col-xs-12 secondary-top-tab-scroll">
+            <ul class="nav nav-tabs tabbable">
+                <li ui-class="{'active': activeTab == 1}">
+                    <a ui-set="{'activeTab': 1}" data-toggle="tab"
+                       ng-click="voucherCtrl.tabMenuSelected('all')">All Vouchers</a>
+                </li>
+                <li ui-class="{'active': activeTab == 2}" ng-if="voucherCtrl.loggedIn">
+                    <a ui-set="{'activeTab': 2}" data-toggle="tab"
+                       ng-click="voucherCtrl.tabMenuSelected('my')">My Vouchers</a>
+                </li>
+                <li ui-class="{'active': activeTab == 3}" ng-if="voucherCtrl.loggedIn">
+                    <a ui-set="{'activeTab': 3}" data-toggle="tab"
+                       ng-click="voucherCtrl.tabMenuSelected('recommended')">
+                        Recommended Vouchers</a>
+                </li>
+                <li ui-class="{'active': activeTab == 4}" ng-if="voucherCtrl.loggedIn">
+                    <a ui-set="{'activeTab': 4}" data-toggle="tab"
+                       ng-click="voucherCtrl.tabMenuSelected('unused')">Unused Vouchers</a>
+                </li>
+                <li ui-class="{'active': activeTab == 5}" ng-if="voucherCtrl.loggedIn">
+                    <a ui-set="{'activeTab': 5}" data-toggle="tab"
+                       ng-click="voucherCtrl.tabMenuSelected('missed')">Vouchers you Missed</a>
+                </li>
+                <li ui-class="{'active': activeTab == 6}" ng-if="voucherCtrl.loggedIn">
+                    <a ui-set="{'activeTab': 6}" data-toggle="tab"
+                       ng-click="voucherCtrl.getSavings()">My
+                        Savings</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="scrollable-content">
+
+        <div ui-if="activeTab == 1" class="col-xs-12 voucher-main con">
+            <ul infinite-scroll="voucherCtrl.voucherList.nextPage()"
+                infinite-scroll-container="'.voucher-list .scrollable-content'"
+                infinite-scroll-disabled="voucherCtrl.voucherList.busy">
+                <li>
+                    <div class="row cities-dropdown text-center">
+                        <p>Vouchers in</p>
+                        <select class="form-control" name="voucherCity"
+                                ng-options="city.name for city in voucherCtrl.cities track by city.id"
+                                ng-model="voucherCtrl.voucherCity" ng-change="voucherCtrl.updateList(voucherCtrl.voucherCity)"></select>
+                    </div>
+                </li>
+                <li ng-repeat="voucher in voucherCtrl.voucherList.items">
+                    <div class="row m-t-4">
+                        <a href="#/vouchers/view/{{ voucher.id }}">
+                            <img class="voucher-image" ng-src="{{voucher.thumbImagePath}}"
+                                 fallback-src="images/voucher/My_Vouchers.png">
+                        </a>
+                        <div class="col-xs-12 content-border">
+                            <a href="#/vouchers/view/{{ voucher.id }}">
+                                <h5 class="voucher-name title-label-color">{{ voucher.eateryName }}</h5>
+                                <p class="voucher-description">{{ voucher.deal_description }}</p>
+                            </a>
+                            <p>
+                                <span class="sub-heading">Expires on:</span>
+                                <span class="sub-color-red">{{ voucher.end_date }}</span>
+                            </p>
+                            <p class="margin-bottom-5" ng-show="voucher.completed_percentage > 19">
+                                <span class="sub-heading">Claimed:</span>
+                                <span class="sub-color-red">{{ voucher.completed_percentage }}%</span>
+                            </p>
+                            <div class="col-xs-12 p-0">
+                                <div class="col-xs-6 p-0">
+                                    <div class="voucher-progress progress progress-xs" ng-show="voucher.completed_percentage > 19">
+                                        <div class="progress-bar" style="width : {{ voucher.completed_percentage }}%"></div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 p-0" ng-click="voucherCtrl.shareVoucher(voucher.short_url)">
+                                    <p class="pull-right share-element"><i class="fa fa-share-alt"></i> Share this deal</p>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="col-xs-6 voucher-discount">{{ voucher.value }}</div>
+                            <div class="col-xs-5 pull-right">
+                                <div class="voucher-redeem pull-left" ng-if="!voucherCtrl.isRedeemed(voucher)">
+                                    <span>
+                                        <a href="#/vouchers/view/{{ voucher.id }}">Redeem</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 voucher-code" ng-if="voucherCtrl.loggedIn && voucherCtrl.isRedeemed(voucher)">
+                                {{ voucher.user_voucher.voucherCode }}
+                            </div>
+                            <!--<hr />-->
+                        </div>
+                    </div>
+                </li>
+                <li ng-show="voucherCtrl.voucherList.busy">
+                    <ng-include src=" 'list-loader.html' "></ng-include>
+                </li>
+            </ul>
+            <div class="no-data" ng-show="voucherCtrl.voucherList.items.length == 0 && !voucherCtrl.voucherList.busy">
+                <div class="alert alert-warning" role="alert">Currently, there are no available vouchers in this city</div>
+            </div>
+        </div>
+        <div ui-if="activeTab == 2" class="col-xs-12 voucher-main con">
+            <ul infinite-scroll="voucherCtrl.voucherList.nextPage()"
+                infinite-scroll-container="'.voucher-list .scrollable-content'"
+                infinite-scroll-disabled="voucherCtrl.voucherList.busy">
+                <li ng-repeat="voucher in voucherCtrl.voucherList.items">
+                    <div class="row m-t-4">
+                        <a href="#/vouchers/view/{{ voucher.id }}">
+                            <img class="voucher-image" ng-src="{{voucher.thumbImagePath}}"
+                                 fallback-src="images/voucher/My_Vouchers.png">
+                        </a>
+                        <div class="col-xs-12 content-border">
+                            <a href="#/vouchers/view/{{ voucher.id }}">
+                                <h4 class="voucher-name title-label-color">{{ voucher.eateryName }}</h4>
+                                <p class="voucher-description">{{voucherCtrl.voucher.value}}</p>
+                            </a>
+                            <p>
+                                <span class="sub-heading">Expires on:</span>
+                                <span class="sub-color-red">{{ voucher.end_date }}</span>
+                            </p>
+                            <p class="margin-bottom-5" ng-show="voucher.completed_percentage > 19">
+                                <span class="sub-heading">Claimed:</span>
+                                <span class="sub-color-red">{{ voucher.completed_percentage }}%</span>
+                            </p>
+                            <div class="col-xs-12 p-0">
+                                <div class="col-xs-6 p-0">
+                                    <div class="voucher-progress progress progress-xs" ng-show="voucher.completed_percentage > 19">
+                                        <div class="progress-bar" style="width : {{ voucher.completed_percentage }}%"></div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 voucher-code" ng-if="voucherCtrl.isRedeemed(voucher)">
+                                    <span class="title">Voucher Code : </span>
+                                    <span class="code">
+                                        {{ voucher.user_voucher.voucherCode }}
+                                    </span>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="col-xs-12 p-0">
+                                <div class="col-xs-6 voucher-discount">{{ voucher.value }}</div>
+                                <div class="col-xs-6 p-0" ng-click="voucherCtrl.shareVoucher(voucher.short_url)">
+                                    <p class="pull-right share-element"><i class="fa fa-share-alt"></i> Share this deal</p>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                    </div>
+                </li>
+                <li ng-show="voucherCtrl.voucherList.busy">
+                    <ng-include src=" 'list-loader.html' "></ng-include>
+                </li>
+            </ul>
+            <div class="no-data" ng-show="voucherCtrl.voucherList.items.length == 0 && !voucherCtrl.voucherList.busy">
+                <div class="alert alert-warning" role="alert">There are no available vouchers to display</div>
+            </div>
+        </div>
+        <div ui-if="activeTab == 3" class="col-xs-12 voucher-main con">
+            <ul>
+                <li ng-repeat="voucher in voucherCtrl.voucherList.items" ng-show="!voucherCtrl.voucherList.busy">
+                    <div class="row m-t-4">
+                        <a href="#/vouchers/view/{{ voucher.id }}">
+                            <img class="voucher-image" ng-src="{{voucher.thumbImagePath}}"
+                                 fallback-src="images/voucher/My_Vouchers.png">
+                        </a>
+                        <div class="col-xs-12 content-border">
+                            <a href="#/vouchers/view/{{ voucher.id }}">
+                                <h5 class="voucher-name title-label-color">{{ voucher.eateryName }}</h5>
+                                <p class="voucher-description">{{ voucher.deal_description }}</p>
+                            </a>
+                            <p>
+                                <span class="sub-heading">Expires on:</span>
+                                <span class="sub-color-red">{{ voucher.end_date }}</span>
+                            </p>
+                            <p class="margin-bottom-5" ng-show="voucher.completed_percentage > 19">
+                                <span class="sub-heading">Claimed:</span>
+                                <span class="sub-color-red">{{ voucher.completed_percentage }}%</span>
+                            </p>
+                            <div class="col-xs-12 p-0">
+                                <div class="col-xs-6 p-0">
+                                    <div class="voucher-progress progress progress-xs" ng-show="voucher.completed_percentage > 19">
+                                        <div class="progress-bar" style="width : {{ voucher.completed_percentage }}%"></div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 p-0" ng-if="!voucherCtrl.isRedeemed(voucher)" ng-click="voucherCtrl.shareVoucher(voucher.short_url)">
+                                    <p class="pull-right share-element"><i class="fa fa-share-alt"></i> Share this deal</p>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="col-xs-6 voucher-discount">{{ voucher.value }}</div>
+                            <div class="col-xs-6 p-0" ng-if="voucherCtrl.isRedeemed(voucher)" ng-click="voucherCtrl.shareVoucher(voucher.short_url)">
+                                <p class="pull-right share-element"><i class="fa fa-share-alt"></i> Share this deal</p>
+                            </div>
+                            <div class="col-xs-5 pull-right"  ng-if="!voucherCtrl.isRedeemed(voucher)">
+                                <div class="voucher-redeem">
+                                    <span>
+                                        <a href="#/vouchers/view/{{ voucher.id }}">Redeem</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                    </div>
+                </li>
+                <li ng-show="voucherCtrl.voucherList.busy">
+                    <ng-include src=" 'list-loader.html' "></ng-include>
+                </li>
+            </ul>
+            <div class="no-data" ng-show="voucherCtrl.voucherList.items.length == 0 && !voucherCtrl.voucherList.busy">
+                <div class="alert alert-warning" role="alert">Sorry! Currently we do not have any vouchers that match your Location or Taste & Preferences.</div>
+            </div>
+        </div>
+        <div ui-if="activeTab == 4" class="col-xs-12 voucher-main con">
+            <ul infinite-scroll="voucherCtrl.voucherList.nextPage()"
+                infinite-scroll-container="'.voucher-list .scrollable-content'"
+                infinite-scroll-disabled="voucherCtrl.voucherList.busy">
+                <li ng-repeat="voucher in voucherCtrl.voucherList.items">
+                    <a href="#/vouchers/view/{{ voucher.id }}">
+                        <div class="row m-t-4">
+                            <img class="voucher-image" ng-src="{{voucher.thumbImagePath}}"
+                                 fallback-src="images/voucher/My_Vouchers.png">
+                            <div class="col-xs-12 content-border">
+                                <h5 class="voucher-name title-label-color">{{ voucher.eateryName }}</h5>
+                                <p class="voucher-description">{{ voucher.deal_description }}</p>
+                                <p>
+                                    <span class="sub-heading c-red" style="font-weight: bold;">EXPIRED</span>
+                                </p>
+                                <!--<p class="margin-bottom-5" ng-show="voucher.completed_percentage > 19">
+                                    <span class="sub-heading">Claimed:</span>
+                                    <span class="sub-color-red">{{ voucher.completed_percentage }}%</span>
+                                </p>
+                                <div class="voucher-progress progress progress-xs" ng-show="voucher.completed_percentage > 19">
+                                    <div class="progress-bar" style="width : {{ voucher.completed_percentage }}%"></div>
+                                </div>
+                                <hr />
+                                <div class="col-xs-6 voucher-discount">{{ voucher.value }}</div>
+                                <div class="col-xs-5 pull-right"  ng-if="!voucherCtrl.isRedeemed(voucher)">
+                                    <div class="voucher-redeem">
+                                        <span>
+                                            <a ng-click="voucherCtrl.redeem(voucher)">Redeem</a>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 voucher-code" ng-if="voucherCtrl.isRedeemed(voucher)">
+                                    {{ voucher.user_voucher.voucherCode }}
+                                </div>-->
+                                <hr />
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li ng-show="voucherCtrl.voucherList.busy">
+                    <ng-include src=" 'list-loader.html' "></ng-include>
+                </li>
+            </ul>
+            <div class="no-data" ng-show="voucherCtrl.voucherList.items.length == 0 && !voucherCtrl.voucherList.busy">
+                <div class="alert alert-warning" role="alert">There are no available vouchers to display</div>
+            </div>
+        </div>
+        <div ui-if="activeTab == 5" class="col-xs-12 voucher-main con">
+            <ul infinite-scroll="voucherCtrl.voucherList.nextPage()"
+                infinite-scroll-container="'.voucher-list .scrollable-content'"
+                infinite-scroll-disabled="voucherCtrl.voucherList.busy">
+                <li ng-repeat="voucher in voucherCtrl.voucherList.items">
+                    <a href="#/vouchers/view/{{ voucher.id }}">
+                        <div class="row m-t-4">
+                            <img class="voucher-image" ng-src="{{voucher.thumbImagePath}}"
+                                 fallback-src="images/voucher/My_Vouchers.png">
+                            <div class="col-xs-12 content-border">
+                                <h5 class="voucher-name title-label-color">{{ voucher.eateryName }}</h5>
+                                <p class="voucher-description">{{ voucher.deal_description }}</p>
+                                <p>
+                                    <span class="sub-heading c-red" style="font-weight: bold;">EXPIRED</span>
+                                </p>
+                                <p class="margin-bottom-5" ng-show="voucher.completed_percentage > 19">
+                                    <span class="sub-heading">Claimed:</span>
+                                    <span class="sub-color-red">{{ voucher.completed_percentage }}%</span>
+                                </p>
+                                <div class="voucher-progress progress progress-xs" ng-show="voucher.completed_percentage > 19">
+                                    <div class="progress-bar" style="width : {{ voucher.completed_percentage }}%"></div>
+                                </div>
+                                <hr />
+                                <div class="col-xs-6 voucher-discount"><span class="reduce-long-name" style="padding-top: 1.2vw;display: inline-block;">{{ voucher.value }}</span></div>
+                                <div class="col-xs-5 voucher-redeem"  ng-if="!voucherCtrl.isRedeemed(voucher)">
+                                    <span>
+                                        <a ng-show="!voucher.reminded" ng-click="voucherCtrl.remindMe(voucher)">Remind Me</a>
+                                    </span>
+                                    <span ng-show="voucher.reminded" class="text-center thumbs-up" style="position: initial;">Reminder Set <i class="fa fa-thumbs-up"></i> </span>
+                                </div>
+                                <hr />
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li ng-show="voucherCtrl.voucherList.busy">
+                    <ng-include src=" 'list-loader.html' "></ng-include>
+                </li>
+            </ul>
+            <div class="no-data" ng-show="voucherCtrl.voucherList.items.length == 0 && !voucherCtrl.voucherList.busy">
+                <div class="alert alert-warning" role="alert">There are no available vouchers to display</div>
+            </div>
+        </div>
+        <div ui-if="activeTab == 6" class="col-xs-12 voucher-main con">
+            <ul class="nav nav-tabs sub-tab">
+                <li ui-class="{'active': activePotentialSaving == 1}">
+                    <a class="main-tab-title" ui-set="{'activePotentialSaving': 1}">Prospective Savings</a>
+                </li>
+                <li ui-class="{'active': activePotentialSaving == 2}">
+                    <a class="main-tab-title" ui-set="{'activePotentialSaving': 2}">Minimum Potential Savings</a>
+                </li>
+            </ul>
+            <div ui-if="activePotentialSaving == 1" class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td><span>Yearly Savings</span></td>
+                        <td><span>INR {{voucherCtrl.savings.yearlyPotentialSavings}}</span></td>
+                    </tr>
+                    <tr>
+                        <td><span>Monthly Savings</span></td>
+                        <td><span>INR {{voucherCtrl.savings.monthlyPotentialSavings}}</span></td>
+                    </tr>
+                    <tr>
+                        <td><span>Weekly Savings</span></td>
+                        <td><span>INR {{voucherCtrl.savings.weeklyPotentialSavings}}</span></td>
+                    </tr>
+                    <tr>
+                        <td><span>Grand Total</span></td>
+                        <td><span>INR {{voucherCtrl.savings.potentialSavings}}</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ui-if="activePotentialSaving == 2" class="table-responsive">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td><span>Yearly Savings</span></td>
+                        <td><span>INR {{voucherCtrl.savings.yearlyProspectiveSavings}}</span></td>
+                    </tr>
+                    <tr>
+                        <td><span>Monthly Savings</span></td>
+                        <td><span>INR {{voucherCtrl.savings.monthlyProspectiveSavings}}</span></td>
+                    </tr>
+                    <tr>
+                        <td><span>Weekly Savings</span></td>
+                        <td><span>INR {{voucherCtrl.savings.weeklyProspectiveSavings}}</span></td>
+                    </tr>
+                    <tr>
+                        <td><span>Grand Total</span></td>
+                        <td><span>INR {{voucherCtrl.savings.prospectiveSavings}}</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

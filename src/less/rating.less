@@ -1,0 +1,182 @@
+.rating {
+    span {
+        display: inline-block;
+        width: 5vw;
+        height: 5vw;
+        margin: 0.1vw;
+        border-radius: 50%;
+    }
+    span.on {
+        background: url('../images/star-on.png') no-repeat;
+        background-size: contain;
+    }
+    span.off {
+        background: url('../images/star-off.png') no-repeat;
+        background-size: contain;
+    }
+    span.half {
+        background: url('../images/star-half.png') no-repeat;
+        background-size: contain;
+    }
+}
+.rating-block{
+    padding: 0px 5px;
+    .title-text{
+        font-family: @app-italic-font;
+        font-weight: 700;
+        font-size: 3.5vw;
+    }
+    .fa{
+        font-size:9vw;
+    }
+    textarea{
+        resize:none;
+    }
+    .rating-input{
+        margin-top:12px;
+    }
+    .rate-submit{
+        padding: 1vw 2vw;
+        border-radius: 50px;
+        border: 1px solid #EFEFEF;
+        box-shadow: 0.5vw 0.5vw 0.5vw #D8D8D8;
+        -webkit-box-shadow: 0.5vw 0.5vw 0.5vw #D8D8D8;
+        text-align: center;
+        color:@color-red;
+        background-color: @color-header;
+        font-family: @app-default-font;
+        font-size: 3.5vw;
+        font-weight: 600;
+    }
+    .u-name{
+        font-family: @app-medium-font;
+        font-size: 3.8vw;
+        margin: 0;
+        color: @color-titles;
+    }
+    .rating-show{
+        position: relative;
+        top: 2.2vw;
+    }
+    .date-time{
+        font-family: @app-italic-font;
+        font-size: 2.7vw;
+    }
+    .small-line{
+        font-family: @app-italic-font;
+        margin: 12px 0px;
+    }
+    a{
+        color:@color-red;
+        text-decoration:underline;
+        font-family: @app-italic-font;
+        font-size: 3.5vw;
+    }
+    hr{
+        margin:2vh 0;
+    }
+}
+.rating-popup-block{
+    padding: 0px 5px;
+    .modal-header{
+        padding: 15px 15px 0 15px;
+        h4{
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 3.6vw;
+            .rating-close{
+                background: transparent;
+                border: none;
+                padding-top: 0;
+            }
+        }
+    }
+    .modal-body{
+        padding: 0;
+        li{
+            a{
+                padding: 3.3vw;
+            }
+        }
+        .scrollable-content{
+            height: 84vh;
+            border-radius: 6px;
+            .main-heading{
+                border-bottom: .8vw solid #d5d6d6;
+                padding: 0px 10px 0px 0;
+                margin-bottom: 2vw;
+            }
+            h5{
+                text-align: left;
+                font-weight: 700;
+                text-transform: uppercase;
+                font-size: 3.6vw;
+                display: inline-block;
+            }
+            .rate-name{
+                font-family: @app-italic-font;
+                line-height: 8vw;
+                font-size: 3.6vw;
+                text-align: left;
+            }
+            .view-rating{
+                .rating-right{
+                    padding-top: 1vw;
+                    min-width: 27vw;
+                    .rating span {
+                        float: left;
+                    }
+                }
+            }
+        }
+    }
+}
+.view-simple-rating{
+    padding-top: 3vw;
+    border-bottom: 0.2vw solid;
+    display: inline-block;
+    width: 100%;
+    .date-time{
+        font-family: @app-default-font;
+        font-size: 3vw;
+        padding: 0vw 2vw;
+    }
+}
+.view-simple-rating-close{
+    background: transparent;
+    color: white;
+    font-size: 3.5vw;
+    padding-top: 0;
+}
+.adv-rating{
+    h5{
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 3.6vw;
+        border-bottom: 0.8vw solid rgba(213,214,214,1);
+        display: inline-block;
+    }
+    .rate-name{
+        font-family: @app-italic-font;
+        line-height: 8vw;
+        font-size: 3.6vw;
+    }
+    .view-rating{
+        .rating-right{
+            padding-top: 1vw;
+            min-width: 27vw;
+            .rating span {
+                float: left;
+            }
+        }
+    }
+}
+.empty-advreviews{
+    img{
+        width:33vw;
+    }
+    h5{
+        color: @color-titles;
+        font-weight: 800;
+    }
+}

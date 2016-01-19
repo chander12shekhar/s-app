@@ -1,0 +1,34 @@
+<div class="eatery-menu-page" ng-controller="EateryReviewController as reviewCtrl">
+    <div class="scrollable-header foodee-navbar ng-scope" ng-if="!eatery.simpleReview && !eatery.advReview">
+        <div class="navbar-brand-center title">
+            <div>Advance Review</div>
+        </div>
+    </div>
+    <div class="scrollable display-review" style="margin-top: 8vw;padding-bottom: 8vw;">
+        <div ng-show="reviewCtrl.busy"><ng-include src=" 'list-loader.html' "></ng-include></div>
+        <div class="scrollable-content" ng-show="!reviewCtrl.busy">
+            <div class="row simple-review-area">
+                <div class="col-xs-12 p-0" ng-if="!eatery.simpleRating && !eatery.advRating">
+                    Please give us your current Rating to Review this Eatery.
+                    <a class="pull-right" href="#/eateries/rating/{{ eatery.id }}">Rate Now!</a></p>
+                </div>
+                <input type="hidden" id="adv-review" value="true" />
+                <div class="col-xs-12 p-0" ng-if="(eatery.simpleRating || eatery.advRating) && (!eatery.simpleReview && !eatery.advReview)" >
+                    <span class="title-text">Title</span><span class="pull-right count-total">Min:5.Current:{{reviewCtrl.advReviewTitle.length}}</span>
+                    <div class="form-group">
+                        <input class="form-control" maxlength="50" type="text" ng-model="reviewCtrl.advReviewTitle"/>
+                    </div>
+                    <span class="title-text">Content</span><span class="pull-right count-total">Min:300.Current:{{reviewCtrl.advReviewText.length}}</span>
+                    <div class="form-group">
+                        <textarea rows="4" class="form-control" ng-model="reviewCtrl.advReviewText"></textarea>
+                    </div>
+                    <p>
+                        <button class="rate-submit" ng-click="reviewCtrl.submitAdvancedReview()">Submit</button>
+                        <button class="rate-submit pull-right" ng-click="reviewCtrl.giveSimpleReview()">Simple Review</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,75 @@
+<div class="scrollable " ng-controller="EateriesRatingController as rateCtrl">
+    <div class="scrollable-content" ng-show="rateCtrl.busy">
+        <ng-include src=" 'list-loader.html' "></ng-include>
+    </div>
+    <div class="scrollable-header" ng-show="!rateCtrl.busy">
+        <div class="col-xs-12 secondary-top-tab-scroll">
+            <ui-state id='activeTab' default='1'></ui-state>
+            <ul class="nav nav-tabs tabbable">
+                <li ui-class="{'active': activeTab == 1}" ng-if="eatery.eateryDineIn">
+                    <a ui-set="{'activeTab': 1}" ng-click="rateCtrl.tabMenuSelected('dinein')" data-toggle="tab">Dine In</a>
+                </li>
+                <li ui-class="{'active': activeTab == 2}" ng-if="eatery.eateryHomeDelivery">
+                    <a ui-set="{'activeTab': 2}" ng-click="rateCtrl.tabMenuSelected('homedelivery')" data-toggle="tab">Home Delivery</a>
+                </li>
+                <li ui-class="{'active': activeTab == 3}" ng-if="eatery.eateryPickUp">
+                    <a ui-set="{'activeTab': 3}" ng-click="rateCtrl.tabMenuSelected('pickup')" data-toggle="tab">Pick Up</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="scrollable-content adv-rating">
+        <div style="min-height:1vw;"></div>
+        <div ui-if="activeTab == 1" class="voucher-main con">
+            <div ng-if="eatery.eateryDineIn" class="col-xs-12" ng-repeat="category in rateCtrl.eateryRating.dineInMenu">
+                <h5>{{ category.header }}</h5>
+                <div class="col-xs-12" ng-repeat="rateItem in category.items">
+                    <div class="col-xs-8 p-0 rate-name">{{ rateItem.name }}</div>
+                    <div class="col-xs-4 p-0" star-rating ng-model="rateItem.rating" max="5"></div>
+                </div>
+                <hr/>
+            </div>
+            <div class="col-xs-12 text-center p-0">
+                <button class="btn-foodee" ng-click="rateCtrl.rate()">Submit</button>
+                <button class="btn-foodee" ui-set="{'activeTab': 2}" ng-if="eatery.eateryHomeDelivery" ng-click="rateCtrl.tabMenuSelected('homedelivery')">Next</button>
+                <button class="btn-foodee" ui-set="{'activeTab': 3}" ng-if="!eatery.eateryHomeDelivery && eatery.eateryPickUp" ng-click="rateCtrl.tabMenuSelected('pickup')">Next</button>
+            </div>
+        </div>
+        <div ui-if="activeTab == 2" class="voucher-main con">
+            <a ng-click="rateCtrl.clearRatings(rateCtrl.eateryRating,'homedelivery')">reset ratings</a>
+
+            <div  ng-if="eatery.eateryHomeDelivery" class="col-xs-12" ng-repeat="category in rateCtrl.eateryRating.deliveryMenu">
+                <h5 ng-if="eatery.eateryHomeDelivery && category.header == 'Home Delivery'">{{ category.header }}</h5>
+                <div ng-if="eatery.eateryHomeDelivery && category.header == 'Home Delivery'" class="col-xs-12" ng-repeat="rateItem in category.items">
+                    <div class="col-xs-8 p-0 rate-name">{{ rateItem.name }}</div>
+                    <div class="col-xs-4 p-0" star-rating ng-model="rateItem.rating" max="5"></div>
+                </div>
+            </div>
+            <div class="col-xs-12 text-center p-0">
+                <button class="btn-foodee" ui-set="{'activeTab': 1}" ng-if="eatery.eateryDineIn" ng-click="rateCtrl.tabMenuSelected('dinein')">Previous</button>
+                <button class="btn-foodee" ng-click="rateCtrl.rate()">Submit</button>
+                <button class="btn-foodee" ui-set="{'activeTab': 3}" ng-if="eatery.eateryPickUp" ng-click="rateCtrl.tabMenuSelected('pickup')">Next</button>
+            </div>
+        </div>
+        <div ui-if="activeTab == 3" class="voucher-main con">
+            <a ng-click="rateCtrl.clearRatings(rateCtrl.eateryRating,'pickup')">reset ratings</a>
+            <div ng-if="eatery.eateryPickUp" class="col-xs-12" ng-repeat="category in rateCtrl.eateryRating.deliveryMenu">
+                <h5 ng-if="eatery.eateryPickUp && category.header == 'Pick Up'">{{ category.header }}</h5>
+                <div ng-if="eatery.eateryPickUp && category.header == 'Pick Up'" class="col-xs-12" ng-repeat="rateItem in category.items">
+                    <div class="col-xs-8 p-0 rate-name">{{ rateItem.name }}</div>
+                    <div class="col-xs-4 p-0" star-rating ng-model="rateItem.rating" max="5"></div>
+                </div>
+                <hr/>
+            </div>
+            <div class="col-xs-12 text-center p-0">
+                <button class="btn-foodee" ui-set="{'activeTab': 2}" ng-if="eatery.eateryHomeDelivery" ng-click="rateCtrl.tabMenuSelected('dinein')">Previous</button>
+                <button class="btn-foodee" ui-set="{'activeTab': 1}" ng-if="eatery.eateryDineIn && !eatery.eateryHomeDelivery" ng-click="rateCtrl.tabMenuSelected('dinein')">Previous</button>
+                <button class="btn-foodee" ng-click="rateCtrl.rate()">Submit</button>
+            </div>
+        </div>
+        <div class="col-xs-12" style="padding: 2vw 15px;">
+            <button class="btn-foodee text-left" ng-click="rateCtrl.clearRatings(rateCtrl.eateryRating,'dinein')" style="font-size: 3vw;">Reset</button>
+            <button class="btn-foodee pull-right" ng-click="rateCtrl.giveSimpleRate()" style="font-size: 3vw;">Go to Simple Rating</button>
+        </div>
+    </div>
+</div>

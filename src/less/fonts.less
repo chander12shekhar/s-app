@@ -1,0 +1,75 @@
+@path-fonts:    '../images/fonts';
+
+@font-face {
+    font-family: 'app-medium';
+    src: url('@{path-fonts}/Raleway-Medium.ttf') format('truetype');
+}
+@font-face {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+@font-face {
+    font-family: 'app-bold';
+    src: url('@{path-fonts}/Raleway-Bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'app-italic';
+    src: url('@{path-fonts}/Roboto-Light.ttf') format('truetype');
+}
+
+@app-default-font: 'app-medium';
+@app-light-font: 'Helvetica Neue';
+@app-medium-font: 'app-bold';
+@app-italic-font: 'app-italic';
+
+.font-default,.label-semi-bold,.recipes-advanced-rating,.eateries-advanced-rating, h4{
+  font-family: @app-default-font !important;
+}
+
+.font-light, h5{
+  font-family: @app-default-font !important;
+}
+
+.font-medium{
+  font-family: @app-medium-font !important;
+}
+
+.font-italic{
+  font-family: @app-italic-font !important;
+}
+
+.app-titles{
+  font-family: @app-medium-font !important;
+  color: @color-titles !important;
+}
+.app-slider-menu-links{
+  font-family: @app-medium-font !important;
+  color: @color-titles !important;
+}
+.app-sub-titles{
+  font-family: @app-default-font !important;
+  color: @color-titles !important;
+}
+.app-primary-btn{
+  font-family: @app-medium-font !important;
+}
+
+::-webkit-input-placeholder {
+  font-family:@app-default-font !important;
+  color: @color-table-header-fonts !important;
+}
+
+textarea::-webkit-input-placeholder{
+  font-family:@app-default-font !important;
+  color: @color-table-header-fonts !important;
+}
+
+.dropdown-multiselect{
+    .multiselect{
+      font-family:@app-default-font !important;
+      color: @color-table-header-fonts !important;
+    }
+}
+
+.navbar-secondary{
+  font-family: @app-default-font !important;
+}

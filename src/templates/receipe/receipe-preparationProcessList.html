@@ -1,0 +1,26 @@
+<div class="eatery-photos" ng-if="data.photos.length">
+    <image-viewer list="data.photos"></image-viewer>
+</div>
+<div class="container-fluid receipe-preparation-process scrollable-content">
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="record in  data">
+                <div class="row">
+                    <div class="col-xs-12 preparation-process-list-item-margin">
+                        <span class="process-label-step">{{record.step}}{{". "}}</span><span class="recipe-bold">{{record.preparationProcess}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 preparation-process-list-item-margin-time">
+                        <i class="fa fa-clock-o"></i>
+                        <span class="recipe-bold">{{"Preparation Process Time:"}} {{record.preaparationTime}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 preparation-process-list-item-margin">
+                        <img class="" ng-src="{{record.file.fullImageThumbPath}}" fallback-src="images/receipe/preparationprocess.png"></img>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

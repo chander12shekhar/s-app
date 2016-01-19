@@ -1,0 +1,17 @@
+<div>
+    <ul class="list-group recipe-ingridents">
+        <li class="list-group-item" ng-repeat="record in data">
+            <!-- Need to add Yummy logo -->
+            <div class="container-fluid ingridents-container">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <img class="img-circle img-responsive" ng-src="{{record.brand.brandLogo.fullImageThumbPath}}" fallback-src="images/receipe/MTR.png">
+                    </div>
+                    <div class="col-xs-11 col-centered">
+                        <span class="recipe-bold" ng-bind-template="{{record.measurement+ 'Table Spoon' + record.ingredient.name }}"> </span>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

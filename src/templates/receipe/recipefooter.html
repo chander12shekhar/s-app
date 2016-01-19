@@ -1,0 +1,9 @@
+<!-- navbar-fixed-bottom -->
+<div class="navbar navbar-app footer navbar-fixed-bottom navbar-absolute-bottom">
+    <nav class="btn-group justified">
+        <div class="btn btn-navbar" ng-repeat="footerModelItem in footerModel" ng-click="reviewLaunch(footerModelItem)">
+            <i class="fa {{footerModelItem.iconClass}} fa-navbar">
+                <div class="{{footerModelItem.iconTextClass}}">{{footerModelItem.name}}</div>
+            </i></div>
+    </nav>
+</div>

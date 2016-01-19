@@ -1,0 +1,105 @@
+.header {
+    .logo {
+        height: 35px;
+        vertical-align: middle;
+        margin: 0 auto;
+        margin-top: 5px;
+    }
+    .extra-icons{
+        .menu-link-search {
+          font-size: 20px;
+          margin-right:1vw;
+          padding-top: 20px;
+          color: initial;
+        }
+        .fa-search{
+            color:@color-red;
+        }
+        .fa-bars{
+            padding-top: 21px;
+        }
+    }
+}
+.navbar-absolute-top{
+    border: none;
+}
+.navbar-brand {
+  padding: 0px 6vw 0vh 6vw;
+  height: initial;
+  z-index: -9;
+  //line-height: 4vh;
+}
+
+.scrollable-header {
+  background-color: @color-red;
+  overflow: auto;
+  overflow-y: hidden;
+  height: 8vw;
+}
+.foodee-navbar {
+  background-color: @color-red;
+  clear: both;
+  overflow: auto;
+  overflow-y: hidden;
+  .title {
+    text-align: center;
+    color: @color-header;
+    text-transform: uppercase;
+    font-weight: 600;
+    height: 8vw;
+    font-family: app-medium;
+    font-size: 4vw;
+    div{
+        top: 1vw;
+        position: relative;
+    }
+  }
+}
+.foodee-navbar-button {
+  color: @color-header;
+  font-size:4vw;
+}
+
+.foodee-button {
+  color: @color-titles;
+  font-size:3.9vw;
+}
+
+
+.footer-group{
+    border-top: 0.2vh solid @color-border-light-gray;
+    background-color:@color-header;
+}
+.search-tooltip{
+  position:absolute;
+  bottom:0vh;
+  right: 3.5vw;
+  margin-bottom: -0.2vh;
+}
+
+.arrow-up {
+	width: 0;
+	height: 0;
+	border-left: 3vw solid transparent;
+	border-right: 3vw solid transparent;
+	border-bottom: 2vh solid @color-red;
+}
+@media (min-height: 960px) {
+    .menu-link-search{
+    }
+    .header{
+     .menu-link{
+        padding-top: 4vh;
+        border:1px solid red;
+        }
+    }
+}
+
+@media (max-width: 740px) {
+  .logo-header {
+    img {
+      max-width: 88% !important;
+    }
+  }
+}
+

@@ -1,0 +1,32 @@
+<section id="social-wall"
+         class="section app-itemhomelist-innerpadding container-fluid scrollable social"
+         ng-controller="SocialController as social">
+
+
+    <div class="scrollable-header foodee-navbar">
+
+        <!--<div class="position-left pull-left">
+
+            <div><a ng-click="social.publish()"><i class="fa fa-user navbar-button"></i></a></div>
+
+        </div>-->
+
+
+        <div class="navbar-brand-center title">
+            <div>My social</div>
+        </div>
+
+        <div class="pull-right position-right">
+            <div class="centered">
+                <div><a ng-click="social.publish()"><i class="fa fa-envelope-o navbar-button-small"></i></a></div>
+                <div class="navbar-label">Post</div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="scrollable-content padded" id="social-page-me" ng-hide="social.showPublishPage">
+        hi there
+    </div>
+</section>

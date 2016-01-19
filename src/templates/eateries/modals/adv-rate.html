@@ -1,0 +1,199 @@
+<div class="modal rating-popup-block" style="padding-top: 0;" ui-if="modalAdvRate" ui-state='modalAdvRate'>
+    <div class="modal-backdrop in"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Advance Rating
+                    <div class="text-right" style="float: right;">
+                        <button ui-turn-off="modalAdvRate" class="btn rating-close"><i class="fa fa-close"></i></button>
+                    </div>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-xs-12 p-0 secondary-top-tab-scroll">
+                    <ui-state id='activeTab' default='1'></ui-state>
+                    <ul class="nav nav-tabs tabbable">
+                        <li ui-class="{'active': activeTab == 1}" ng-if="rateCtrl.advRating.overallFoodRating != 0 && rateCtrl.advRating.overalladvRatingServiceRating != 0 && rateCtrl.advRating.overallhygieneRating != 0 ">
+                            <a ui-set="{'activeTab': 1}" ng-click="rateCtrl.tabMenuSelected('dinein')" data-toggle="tab">Dine In</a>
+                        </li>
+                        <li ui-class="{'active': activeTab == 2}" ng-if="rateCtrl.advRating.overallhomeDeliveryRating != 0">
+                            <a ui-set="{'activeTab': 2}" ng-click="rateCtrl.tabMenuSelected('homedelivery')" data-toggle="tab">Home Delivery</a>
+                        </li>
+                        <li ui-class="{'active': activeTab == 3}" ng-if="rateCtrl.advRating.overallpickupRating != 0">
+                            <a ui-set="{'activeTab': 3}" ng-click="rateCtrl.tabMenuSelected('pickup')" data-toggle="tab">Pick Up</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row scrollable-content">
+                    <div ui-if="activeTab == 1" class="voucher-main con">
+                        <div ng-if="rateCtrl.advRating.overallFoodRating != 0 && rateCtrl.advRating.overalladvRatingServiceRating != 0 && rateCtrl.advRating.overallhygieneRating != 0 ">
+                            <div class="col-xs-12">
+                                <div class="col-xs-12 main-heading">
+                                    <h5 class="col-xs-6 p-0">Food</h5>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.overallFoodRating}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Quality </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.food.qualityScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Taste </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.food.tasteScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Price </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.food.priceScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Hygiene </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.food.hygieneScore}}"></rating>
+                                </div>
+                                <hr/>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-12 main-heading">
+                                    <h5 class="col-xs-6 p-0">Service</h5>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.overalladvRatingServiceRating}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Speed of Service </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.advRatingService.speedScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Right Order </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.advRatingService.rightOrderScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Experience </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.advRatingService.experienceScore}}"></rating>
+                                </div>
+                                <hr/>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-xs-12 main-heading">
+                                    <h5 class="col-xs-6 p-0">Hygiene</h5>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.overallhygieneRating}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Cleanliness Of Eatery </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.hygiene.cleanlinessOfEateryScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Cutlery And Service </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.hygiene.cutleryAndServiceScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Sanitization </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.hygiene.sanitizationScore}}"></rating>
+                                </div>
+                                <hr/>
+                            </div>
+                            <div class="col-xs-12 text-center" style="padding: 3vw 0vw 5vw 0vw;">
+                                <button class="btn-foodee" ui-set="{'activeTab': 2}" ng-if="rateCtrl.advRating.overallhomeDeliveryRating != 0"ng-click="rateCtrl.tabMenuSelected('homedelivery')">Next</button>
+                                <button class="btn-foodee" ui-set="{'activeTab': 3}" ng-if="rateCtrl.advRating.overallhomeDeliveryRating == 0 && rateCtrl.advRating.overallpickupRating != 0" ng-click="rateCtrl.tabMenuSelected('pickup')">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div ui-if="activeTab == 2" class="voucher-main con">
+                        <div ng-if="rateCtrl.advRating.overallhomeDeliveryRating != 0">
+                            <div class="col-xs-12">
+                                <div class="col-xs-12 main-heading">
+                                    <h5 class="col-xs-6 p-0">Home Delivery</h5>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.overallhomeDeliveryRating}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Quality </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.homeDelivery.homeQualityScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Quantity </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.homeDelivery.quantityScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Delivery Time </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.homeDelivery.deliveryTimeScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Temperature </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.homeDelivery.temparatureScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Packaging Quality </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.homeDelivery.pkgQualityScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Container Price </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.homeDelivery.containerPriceScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Delivery Charge </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.homeDelivery.deliveryChargeScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Overall Price </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.homeDelivery.deliveryPriceScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Payment Options </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.homeDelivery.paymentScore}}"></rating>
+                                </div>
+                                <hr/>
+                            </div>
+                            <div class="col-xs-12 text-center" style="padding: 3vw 0vw 5vw 0vw;">
+                                <button class="btn-foodee" ui-set="{'activeTab': 1}" ng-if="rateCtrl.advRating.overallFoodRating != 0 && rateCtrl.advRating.overalladvRatingServiceRating != 0 && rateCtrl.advRating.overallhygieneRating != 0 " ng-click="rateCtrl.tabMenuSelected('dinein')">Previous</button>
+                                <button class="btn-foodee" ui-set="{'activeTab': 3}" ng-if="rateCtrl.advRating.overallpickupRating != 0" ng-click="rateCtrl.tabMenuSelected('pickup')">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div ui-if="activeTab == 3" class="voucher-main con">
+                        <div ng-if="rateCtrl.advRating.overallpickupRating != 0">
+                            <div class="col-xs-12">
+                                <div class="col-xs-12 main-heading">
+                                    <h5 class="col-xs-6 p-0">Pick Up</h5>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.overallpickupRating}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Quality </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.pickup.pickupQualityScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Quantity </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.pickup.pickupQuantityScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Waiting Time </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.pickup.waitingScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Temperature </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.pickup.pickupTemparatureScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Packaging Quality </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.pickup.pickupPkgQualityScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Container Price </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.pickup.pickupContainerPriceScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Overall Price </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.pickup.pickupOverallPriceScore}}"></rating>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-6 p-0 rate-name">Payment Options </div>
+                                    <rating class="col-xs-6 p-0 rating-right rating-show" value="{{rateCtrl.advRating.pickup.pickupPaymentOptionsScore}}"></rating>
+                                </div>
+                                <hr/>
+                            </div>
+                            <div class="col-xs-12 text-center" style="padding: 3vw 0vw 5vw 0vw;">
+                                <button class="btn-foodee" ui-set="{'activeTab': 2}" ng-if="rateCtrl.advRating.overallhomeDeliveryRating != 0" ng-click="rateCtrl.tabMenuSelected('dinein')">Previous</button>
+                                <button class="btn-foodee" ui-set="{'activeTab': 1}" ng-if="rateCtrl.advRating.overallhomeDeliveryRating == 0 && rateCtrl.advRating.overallFoodRating != 0 && rateCtrl.advRating.overalladvRatingServiceRating != 0 && rateCtrl.advRating.overallhygieneRating != 0 " ng-click="rateCtrl.tabMenuSelected('dinein')">Previous</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

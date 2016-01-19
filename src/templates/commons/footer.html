@@ -1,0 +1,11 @@
+<div class="scrollable-footer footer navbar-fixed-bottom">
+    <nav class="btn-group justified">
+
+        <div class="btn btn-navbar" ng-repeat="item in items" style="padding-top: 0;"
+             ng-disabled="item.disabled" ng-click="value = ((item.disabled || (item.oneWay && item.checked)) ? true  :  item.checked = !item.checked)">
+            <i ng-class="item.checked && item.iconClassChecked ? 'fa ' + item.iconClassChecked + ' fa-navbar' : item.oneWay && item.checked ? 'fa ' + item.iconClassChecked + ' fa-navbar' : 'fa ' + item.iconClass +' fa-navbar'"
+               ng-click="value = (item.oneWay && item.checked) ? true : item.action()">
+                <div class="{{item.iconTextClass}}">{{item.name}}</div>
+            </i></div>
+    </nav>
+</div>

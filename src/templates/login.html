@@ -1,0 +1,56 @@
+<section id="login-screen-section"
+         class="app-body section app-itemhomelist-innerpadding container-fluid login " ng-controller="LoginController as loginCtrl">
+
+    <div class="scrollable-header foodee-navbar ">
+        <div class="navbar-brand-center title">
+            <div>Sign In</div>
+        </div>
+    </div>
+    <div class="scrollable" style="margin-top: 8vw;padding-bottom: 8vw;">
+        <div class="scrollable-content form-margin foodee-form" id="login-screen">
+            <div ng-show="!loginCtrl.logged" class="col-xs-12 p-0" >
+                <form ng-submit="loginCtrl.login()" class="row">
+                    <div class="form-group">
+                        <input type="email" class="form-control" ng-model="loginCtrl.user.email" placeholder="Email address" required/>
+                    </div>
+                    <div class="form-group">
+                        <input type="{{ loginCtrl.type }}" class="form-control" ng-model="loginCtrl.user.password" placeholder="Password" required />
+                    </div>
+                    <div class="form-group">
+                        <span class="show-password">Show password</span>
+                        <ui-switch class="switch" id="tuggle" ng-model="loginCtrl.showPassword" ng-change="loginCtrl.toggleType('tuggle')" style="float:left;"></ui-switch>
+
+                        <span class="forgot-password pull-right"><a ng-click="loginCtrl.forgetPassword()">Forgot Password?</a></span>
+
+                    </div>
+                    <div class="form-group text-center m-t-2 m-b-3">
+                        <button type="submit" class="btn btn-danger">Sign In</button>
+                    </div>
+
+                    <div class="form-group text-center" style="margin-top: -7vw; margin-bottom: 6vw;">
+                        <div class="col-xs-4"></div>
+                        <div class="col-xs-2 login-label facebook" ng-click="loginCtrl.facebookLogin()">
+                            <i class="fa fa-facebook-square icon"></i>
+                        </div>
+                        <div class="col-xs-2 login-label googleplus" ng-click="loginCtrl.googleLogin()">
+                            <i class="fa p-0 fa-google-plus-square icon"></i>
+                        </div>
+                        <div class="col-xs-4"></div>
+                    </div>
+                </form>
+
+                <div class="row center" style="margin-bottom: 6vw;">
+                    <div class="strike-left strike"></div>
+                    <div class="strike-center">or</div>
+                    <div class="strike-right strike"></div>
+                </div>
+                <div class="row form-group text-center">
+                    <ul>
+                        <li><a href="#/new-account" class=" btn-green btn">Sign Up</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

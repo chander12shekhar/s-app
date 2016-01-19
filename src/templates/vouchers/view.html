@@ -1,0 +1,57 @@
+<div class="scrollable eatery-menu-page" ng-class="front.class"
+     ng-controller="VoucherController as voucherCtrl" ng-if="!indexCtrl.isLogged()">
+    <div class="scrollable-content" ng-if="voucherCtrl.busy">
+        <ng-include src=" 'list-loader.html' "></ng-include>
+    </div>
+    <div class="scrollable-content voucher-list">
+        <div style="min-height:1vw;"></div>
+
+        <div class="row">
+            <div class="voucher-view">
+                <div class="text-center">
+                    <img ng-src="{{voucherCtrl.voucher.thumbImagePath}}"
+                         fallback-src="images/voucher/My_Vouchers.png">
+                </div>
+                <div class="col-xs-12 content-border">
+                    <p class="voucher-title">{{ voucherCtrl.voucher.deal_description }}</p>
+                    <div class="col-xs-12 p-0">
+                        <div class="col-xs-12 p-0" ng-if="!voucherCtrl.isRedeemed(voucherCtrl.voucher)">
+                            <div class="col-xs-6 p-0" ng-click="voucherCtrl.shareVoucher(voucherCtrl.voucher.short_url)">
+                                <p class="share-deal"><i class="fa fa-share-alt"></i> Share this deal</p>
+                            </div>
+                            <div class="col-xs-5 voucher-redeem">
+                                <span>
+                                    <a ng-click="voucherCtrl.redeem(voucherCtrl.voucher)"
+                                       ng-show="!voucherCtrl.voucher.expired">Get Voucher Code</a>
+                                    <a ng-show="voucherCtrl.loggedIn && !voucherCtrl.voucher.reminded && (voucherCtrl.voucher.redeemed || voucherCtrl.voucher.expired)"
+                                       ng-click="voucherCtrl.remindMe(voucherCtrl.voucher)">Remind Me</a>
+                                    <span ng-show="voucherCtrl.loggedIn && voucherCtrl.voucher.reminded" class="thumbs-up">Reminder Set <i class="fa fa-thumbs-up"></i> </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div ng-if="voucherCtrl.isRedeemed(voucherCtrl.voucher)">
+                            <div class="col-xs-12 p-0 text-center" ng-click="voucherCtrl.shareVoucher(voucherCtrl.voucher.short_url)">
+                                <p class="share-deal"><i class="fa fa-share-alt"></i> Share this deal</p>
+                            </div>
+                            <div class="voucher-code-val col-xs-12 p-0 pull-right" ng-if="voucherCtrl.isRedeemed(voucherCtrl.voucher)">
+                                <span ng-show="!voucherCtrl.voucher.expired" class="title">Voucher Code : </span>
+                                <span class="code" ng-show="!voucherCtrl.voucher.expired">
+                                    {{ voucherCtrl.voucher.user_voucher.voucherCode }}
+                                </span>
+                                <span class="code" ng-show="voucherCtrl.voucher.expired">
+                                    EXPIRED
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                    <p class="terms-label">Terms & Conditions</p>
+                    <div class="terms-desc col-xs-12 p-0" ng-bind-html="voucherCtrl.voucher.description"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="voucherCtrl.busy">
+            <ng-include src=" 'list-loader.html' "></ng-include>
+        </div>
+    </div>
+</div>

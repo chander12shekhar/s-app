@@ -1,0 +1,73 @@
+<div class="scrollable eatery-menu-page" ng-if="!indexCtrl.isLogged()">
+  <div class="scrollable-header foodee-navbar">
+    <div class="col-xs-6 col-xs-offset-3 title">
+      <div>Recipes</div>
+    </div>
+  </div>
+  <div class="scrollable-footer foodee-navbar-footer">
+    <div class="col col-xs-3 eatery-footer">
+      <div class="pull-left">
+        <div>
+          <i class="fa fa-trophy full red"></i>
+          <div class="pull-right badge-label">
+            <span class="rank-label">Rank</span><br/>
+            <span class="rank-value">128</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="col col-xs-6">&nbsp;</div>
+    <div class="col col-xs-3 eatery-footer">
+      <div class="pull-right">
+        <div>
+          <i class="fa fa-certificate full red"></i>
+          <div class="pull-right badge-label">
+            <span class="rank-label">Badge</span><br/>
+            <span class="rank-value">Novice</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="scrollable-content">
+    <div style="min-height:2vw;"></div>
+    <div class="row">
+      <div class="image-menu" >
+        <a href="#/recipes/all">
+          <image src="images/receipe/food1.jpg" />
+          <h4 class="eateries-label">
+            <span class="fb-image-inside-label">All Recipes</span>
+            <span class="badge badge-important pull-right">{{recipeHomeCtrl.recipes.counts.all}}</span>
+          </h4>
+        </a>
+      </div>
+    </div>
+
+    <div class="row"  ng-if="recipeHomeCtrl.isLogged()">
+      <div class="image-menu" >
+        <a href="#/recipes/all">
+          <image src="images/receipe/food2.jpg" />
+          <h4 class="eateries-label">
+            <span class="fb-image-inside-label">Recommended</span>
+            <span class="badge pull-right">{{recipeHomeCtrl.recipes.counts.recommended}}</span>
+          </h4>
+        </a>
+      </div>
+    </div>
+
+    <div class="row" ng-if="recipeHomeCtrl.isLogged()">
+      <div class="image-menu" >
+        <a href="#/recipes/all">
+          <image src="images/receipe/food3.jpg" />
+          <h4 class="eateries-label">
+            <span class="fb-image-inside-label">My Recipes</span>
+            <span class="badge pull-right">{{recipeHomeCtrl.recipes.counts.myRecipes}}</span>
+          </h4>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
